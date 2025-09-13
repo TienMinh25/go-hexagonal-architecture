@@ -1,3 +1,17 @@
+# aidanwoods.dev/go-paseto v1.5.4
+## explicit; go 1.18
+aidanwoods.dev/go-paseto
+aidanwoods.dev/go-paseto/internal/encoding
+aidanwoods.dev/go-paseto/internal/hashing
+aidanwoods.dev/go-paseto/internal/random
+# aidanwoods.dev/go-result v0.3.1
+## explicit; go 1.19
+aidanwoods.dev/go-result/option
+aidanwoods.dev/go-result/result
+aidanwoods.dev/go-result/types
+# github.com/Masterminds/squirrel v1.5.4
+## explicit; go 1.14
+github.com/Masterminds/squirrel
 # github.com/brianvoe/gofakeit/v6 v6.28.0
 ## explicit; go 1.21
 github.com/brianvoe/gofakeit/v6
@@ -11,12 +25,63 @@ github.com/davecgh/go-spew/spew
 # github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f
 ## explicit
 github.com/dgryski/go-rendezvous
+# github.com/golang-migrate/migrate/v4 v4.19.0
+## explicit; go 1.23.0
+github.com/golang-migrate/migrate/v4
+github.com/golang-migrate/migrate/v4/database
+github.com/golang-migrate/migrate/v4/database/multistmt
+github.com/golang-migrate/migrate/v4/database/postgres
+github.com/golang-migrate/migrate/v4/internal/url
+github.com/golang-migrate/migrate/v4/source
+github.com/golang-migrate/migrate/v4/source/iofs
 # github.com/google/uuid v1.6.0
 ## explicit
 github.com/google/uuid
+# github.com/hashicorp/errwrap v1.1.0
+## explicit
+github.com/hashicorp/errwrap
+# github.com/hashicorp/go-multierror v1.1.1
+## explicit; go 1.13
+github.com/hashicorp/go-multierror
+# github.com/jackc/pgpassfile v1.0.0
+## explicit; go 1.12
+github.com/jackc/pgpassfile
+# github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761
+## explicit; go 1.14
+github.com/jackc/pgservicefile
+# github.com/jackc/pgx/v5 v5.7.6
+## explicit; go 1.23.0
+github.com/jackc/pgx/v5
+github.com/jackc/pgx/v5/internal/iobufpool
+github.com/jackc/pgx/v5/internal/pgio
+github.com/jackc/pgx/v5/internal/sanitize
+github.com/jackc/pgx/v5/internal/stmtcache
+github.com/jackc/pgx/v5/pgconn
+github.com/jackc/pgx/v5/pgconn/ctxwatch
+github.com/jackc/pgx/v5/pgconn/internal/bgreader
+github.com/jackc/pgx/v5/pgproto3
+github.com/jackc/pgx/v5/pgtype
+github.com/jackc/pgx/v5/pgxpool
+# github.com/jackc/puddle/v2 v2.2.2
+## explicit; go 1.19
+github.com/jackc/puddle/v2
+github.com/jackc/puddle/v2/internal/genstack
 # github.com/joho/godotenv v1.5.1
 ## explicit; go 1.12
 github.com/joho/godotenv
+# github.com/kr/text v0.2.0
+## explicit
+# github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
+## explicit
+github.com/lann/builder
+# github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0
+## explicit
+github.com/lann/ps
+# github.com/lib/pq v1.10.9
+## explicit; go 1.13
+github.com/lib/pq
+github.com/lib/pq/oid
+github.com/lib/pq/scram
 # github.com/pmezard/go-difflib v1.0.0
 ## explicit
 github.com/pmezard/go-difflib/difflib
@@ -31,16 +96,47 @@ github.com/redis/go-redis/v9/internal/pool
 github.com/redis/go-redis/v9/internal/proto
 github.com/redis/go-redis/v9/internal/rand
 github.com/redis/go-redis/v9/internal/util
-# github.com/stretchr/testify v1.9.0
+# github.com/rogpeppe/go-internal v1.14.1
+## explicit; go 1.23
+# github.com/stretchr/testify v1.10.0
 ## explicit; go 1.17
 github.com/stretchr/testify/assert
+github.com/stretchr/testify/assert/yaml
 # go.uber.org/mock v0.6.0
 ## explicit; go 1.23.0
 go.uber.org/mock/gomock
 # golang.org/x/crypto v0.42.0
 ## explicit; go 1.24.0
 golang.org/x/crypto/bcrypt
+golang.org/x/crypto/blake2b
 golang.org/x/crypto/blowfish
+golang.org/x/crypto/chacha20
+golang.org/x/crypto/chacha20poly1305
+golang.org/x/crypto/hkdf
+golang.org/x/crypto/internal/alias
+golang.org/x/crypto/internal/poly1305
+golang.org/x/crypto/pbkdf2
+# golang.org/x/sync v0.17.0
+## explicit; go 1.24.0
+golang.org/x/sync/semaphore
+# golang.org/x/sys v0.36.0
+## explicit; go 1.24.0
+golang.org/x/sys/cpu
+# golang.org/x/text v0.29.0
+## explicit; go 1.24.0
+golang.org/x/text/cases
+golang.org/x/text/internal
+golang.org/x/text/internal/language
+golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/tag
+golang.org/x/text/language
+golang.org/x/text/runes
+golang.org/x/text/secure/bidirule
+golang.org/x/text/secure/precis
+golang.org/x/text/transform
+golang.org/x/text/unicode/bidi
+golang.org/x/text/unicode/norm
+golang.org/x/text/width
 # gopkg.in/yaml.v3 v3.0.1
 ## explicit
 gopkg.in/yaml.v3
