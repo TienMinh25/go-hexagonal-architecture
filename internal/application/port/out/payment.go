@@ -1,4 +1,4 @@
-//go:generate mockgen -source=order.go -destination=../../mock/payment-repository.go -package=mock
+//go:generate mockgen -source=payment.go -destination=../../mock/payment-repository.go -package=mock
 package portout
 
 import (
