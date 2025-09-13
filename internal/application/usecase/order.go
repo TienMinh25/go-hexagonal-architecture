@@ -22,8 +22,8 @@ type orderUsecase struct {
 	cache        portout.CacheRepository
 }
 
-// NewOrderService creates a new order service instance
-func NewOrderService(orderRepo portout.OrderRepository, productRepo portout.ProductRepository,
+// NewOrderUsecase creates a new order service instance
+func NewOrderUsecase(orderRepo portout.OrderRepository, productRepo portout.ProductRepository,
 	categoryRepo portout.CategoryRepository, userRepo portout.UserRepository,
 	paymentRepo portout.PaymentRepository, cache portout.CacheRepository) portin.OrderService {
 	return &orderUsecase{
