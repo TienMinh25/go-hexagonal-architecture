@@ -10,7 +10,7 @@ This project demonstrates the implementation of **Hexagonal Architecture** in Go
 
 ### Key Principles
 
-- **Domain-Driven Design (DDD)**: Business logic is isolated in the domain layer
+- **Domain-Driven Design (DDD)**: Business logic is isolated in the appliation layer
 - **Dependency Inversion**: High-level modules don't depend on low-level modules
 - **Testability**: Each layer can be tested in isolation
 - **Flexibility**: Easy to swap implementations (e.g., database, web framework)
