@@ -7,35 +7,35 @@ import (
 	"os"
 
 	_ "github.com/TienMinh25/go-hexagonal-architecture/docs"
+	storagepostgres "github.com/TienMinh25/go-hexagonal-architecture/infrastructure/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/auth/paseto"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/config"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/logger"
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres/repository"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/redis"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/usecase"
 )
 
-//	@title						Go Sale API demo for hexagonal architecture
-//	@version					1.0
-//	@description				This is a simple RESTful Point of Sale (POS) Service API written in Go using Gin web framework, PostgreSQL database, and Redis cache.
+// @title						Go Sale API demo for hexagonal architecture
+// @version					1.0
+// @description				This is a simple RESTful Point of Sale (POS) Service API written in Go using Gin web framework, PostgreSQL database, and Redis cache.
 //
-//	@contact.name				Tien Minh
-//	@contact.url				https://github.com/TienMinh25/go-hexagonal-architecture
-//	@contact.email				letienminh2512@gmail.com
+// @contact.name				Tien Minh
+// @contact.url				https://github.com/TienMinh25/go-hexagonal-architecture
+// @contact.email				letienminh2512@gmail.com
 //
-//	@license.name				APACHE
-//	@license.url				https://github.com/TienMinh25/go-hexagonal-architecture/blob/main/LICENSE
+// @license.name				APACHE
+// @license.url				https://github.com/TienMinh25/go-hexagonal-architecture/blob/main/LICENSE
 //
-//	@host						localhost
-//	@BasePath					/v1
-//	@schemes					http https
+// @host						localhost
+// @BasePath					/v1
+// @schemes					http https
 //
-//	@securityDefinitions.apikey	BearerAuth
-//	@in							header
-//	@name						Authorization
-//	@description				Type "Bearer" followed by a space and the access token.
+// @securityDefinitions.apikey	BearerAuth
+// @in							header
+// @name						Authorization
+// @description				Type "Bearer" followed by a space and the access token.
 func main() {
 	// Load environment variables
 	config, err := config.New()
@@ -51,7 +51,7 @@ func main() {
 
 	// Init database
 	ctx := context.Background()
-	db, err := postgres.New(ctx, config.DB)
+	db, err := storagepostgres.New(ctx, config.DB)
 	if err != nil {
 		slog.Error("Error initializing database connection", "error", err)
 		os.Exit(1)
@@ -70,7 +70,7 @@ func main() {
 	slog.Info("Successfully migrated the database")
 
 	// Init cache service
-	cache, err := redis.New(ctx, config.Redis)
+	cache, err := redis.NewRedis(ctx, config.Redis)
 	if err != nil {
 		slog.Error("Error initializing cache connection", "error", err)
 		os.Exit(1)

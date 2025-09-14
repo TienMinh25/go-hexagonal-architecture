@@ -5,7 +5,7 @@ import (
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres"
+	storagepostgres "github.com/TienMinh25/go-hexagonal-architecture/infrastructure/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainorder "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/order"
 	domainproduct "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/product"
@@ -18,11 +18,11 @@ import (
  * and provides an access to the postgres database
  */
 type orderRepository struct {
-	db *postgres.DB
+	db *storagepostgres.DB
 }
 
 // NewOrderRepository creates a new order repository instance
-func NewOrderRepository(db *postgres.DB) port.OrderRepository {
+func NewOrderRepository(db *storagepostgres.DB) port.OrderRepository {
 	return &orderRepository{
 		db,
 	}

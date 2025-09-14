@@ -5,7 +5,7 @@ import (
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres"
+	storagepostgres "github.com/TienMinh25/go-hexagonal-architecture/infrastructure/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domaincategory "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/category"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
@@ -17,11 +17,11 @@ import (
  * and provides an access to the postgres database
  */
 type categoryRepository struct {
-	db *postgres.DB
+	db *storagepostgres.DB
 }
 
 // NewCategoryRepository creates a new category repository instance
-func NewCategoryRepository(db *postgres.DB) port.CategoryRepository {
+func NewCategoryRepository(db *storagepostgres.DB) port.CategoryRepository {
 	return &categoryRepository{
 		db,
 	}

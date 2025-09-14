@@ -5,7 +5,7 @@ import (
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres"
+	storagepostgres "github.com/TienMinh25/go-hexagonal-architecture/infrastructure/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainproduct "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/product"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
@@ -17,11 +17,11 @@ import (
  * and provides an access to the postgres database
  */
 type productRepository struct {
-	db *postgres.DB
+	db *storagepostgres.DB
 }
 
 // NewProductRepository creates a new product repository instance
-func NewProductRepository(db *postgres.DB) port.ProductRepository {
+func NewProductRepository(db *storagepostgres.DB) port.ProductRepository {
 	return &productRepository{
 		db,
 	}

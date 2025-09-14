@@ -5,7 +5,7 @@ import (
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres"
+	storagepostgres "github.com/TienMinh25/go-hexagonal-architecture/infrastructure/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainuser "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/user"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
@@ -17,11 +17,11 @@ import (
  * and provides an access to the postgres database
  */
 type userRepository struct {
-	db *postgres.DB
+	db *storagepostgres.DB
 }
 
 // NewUserRepository creates a new user repository instance
-func NewUserRepository(db *postgres.DB) port.UserRepository {
+func NewUserRepository(db *storagepostgres.DB) port.UserRepository {
 	return &userRepository{
 		db,
 	}
