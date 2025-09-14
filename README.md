@@ -34,6 +34,14 @@ go-hexagonal-architecture/
 ├── cmd/
 │   └── http/
 │       └── main.go              # Application entry point
+├── config/                      # Config for application
+├── docs/
+│   ├── architecture.webp       # Architecture diagram
+│   └── db.webp                 # Database schema
+├── infrastructure/
+│   │   ├── storage/            # Infrastructure storage
+│   │   │   ├── postgres/       # Infrastructure postgres
+│   │   │   └── redis/          # Infrastructure redis
 ├── internal/
 │   ├── application/
 │   │   ├── domain/              # Domain entities and business rules
@@ -45,22 +53,17 @@ go-hexagonal-architecture/
 │   │   │   ├── user/            # Domain user
 │   │   │   └── error.go         # Domain error
 │   │   ├── mock/                # Application mock ports/interfaces
-│   │   ├── ports/               # Application ports/interfaces
-│   │   │   ├── in/              # Primary/Driving ports
-│   │   │   └── out/             # Secondary/Driven ports
+│   │   ├── port/                # Application ports/interfaces
 │   │   ├── util/                # Application util
 │   │   └── usecase/             # Application services (use cases)
 │   ├── adapter/
 │   │   ├── auth/paseto/         # Auth (primary adapter)
-│   │   ├── config/              # Config for application
 │   │   ├── handler/http/        # HTTP handlers (primary adapter)
 │   │   ├── logger/              # Logger util for application
-│   │   └── storage/             # Storage implementations
-│   │   │   ├── postgres/        # Secondary adapater for postgres
-│   │   │   ├── redis/           # Secondary adapater for redis
-├── docs/
-│   ├── architecture.webp       # Architecture diagram
-│   └── db.webp                 # Database schema
+│   │   ├── redis/               # Secondary adapater for redis
+│   │   └── repository/          # Secondary adapater for postgres
+│   │   │   ├── model/           # Model in repository
+│   │   │   ├── *.go             # Repository implementation 
 ├── docker-compose.yml           # Local development setup
 ├── Dockerfile                   # Container image
 ├── .env.example                 # Environment variables template
