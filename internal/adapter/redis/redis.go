@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
+	"github.com/TienMinh25/go-hexagonal-architecture/config"
 	storageredis "github.com/TienMinh25/go-hexagonal-architecture/infrastructure/storage/redis"
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/config"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/redis/go-redis/v9"
 )

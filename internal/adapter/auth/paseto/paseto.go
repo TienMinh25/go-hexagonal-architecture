@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"aidanwoods.dev/go-paseto"
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/config"
+	"github.com/TienMinh25/go-hexagonal-architecture/config"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainauth "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/auth"
 	domainuser "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/user"

@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/config"
+	"github.com/TienMinh25/go-hexagonal-architecture/config"
 	slogmulti "github.com/samber/slog-multi"
 	"gopkg.in/natefinch/lumberjack.v2"
 )

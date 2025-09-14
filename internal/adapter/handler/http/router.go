@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"strings"
 
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/config"
+	"github.com/TienMinh25/go-hexagonal-architecture/config"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

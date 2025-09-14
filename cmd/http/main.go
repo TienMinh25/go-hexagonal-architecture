@@ -6,10 +6,10 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/TienMinh25/go-hexagonal-architecture/config"
 	_ "github.com/TienMinh25/go-hexagonal-architecture/docs"
 	storagepostgres "github.com/TienMinh25/go-hexagonal-architecture/infrastructure/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/auth/paseto"
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/config"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/logger"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/redis"
@@ -38,27 +38,27 @@ import (
 // @description				Type "Bearer" followed by a space and the access token.
 func main() {
 	// Load environment variables
-	config, err := config.New()
+	cfg, err := config.New()
 	if err != nil {
 		slog.Error("Error loading environment variables", "error", err)
 		os.Exit(1)
 	}
 
 	// Set logger
-	logger.Set(config.App)
+	logger.Set(cfg.App)
 
-	slog.Info("Starting the application", "app", config.App.Name, "env", config.App.Env)
+	slog.Info("Starting the application", "app", cfg.App.Name, "env", cfg.App.Env)
 
 	// Init database
 	ctx := context.Background()
-	db, err := storagepostgres.New(ctx, config.DB)
+	db, err := storagepostgres.New(ctx, cfg.DB)
 	if err != nil {
 		slog.Error("Error initializing database connection", "error", err)
 		os.Exit(1)
 	}
 	defer db.Close()
 
-	slog.Info("Successfully connected to the database", "db", config.DB.Connection)
+	slog.Info("Successfully connected to the database", "db", cfg.DB.Connection)
 
 	// Migrate database
 	err = db.Migrate()
@@ -70,7 +70,7 @@ func main() {
 	slog.Info("Successfully migrated the database")
 
 	// Init cache service
-	cache, err := redis.NewRedis(ctx, config.Redis)
+	cache, err := redis.NewRedis(ctx, cfg.Redis)
 	if err != nil {
 		slog.Error("Error initializing cache connection", "error", err)
 		os.Exit(1)
@@ -80,7 +80,7 @@ func main() {
 	slog.Info("Successfully connected to the cache server")
 
 	// Init token service
-	token, err := paseto.New(config.Token)
+	token, err := paseto.New(cfg.Token)
 	if err != nil {
 		slog.Error("Error initializing token service", "error", err)
 		os.Exit(1)
@@ -118,7 +118,7 @@ func main() {
 
 	// Init router
 	router, err := http.NewRouter(
-		config.HTTP,
+		cfg.HTTP,
 		token,
 		*userHandler,
 		*authHandler,
@@ -133,7 +133,7 @@ func main() {
 	}
 
 	// Start server
-	listenAddr := fmt.Sprintf("%s:%s", config.HTTP.URL, config.HTTP.Port)
+	listenAddr := fmt.Sprintf("%s:%s", cfg.HTTP.URL, cfg.HTTP.Port)
 	slog.Info("Starting the HTTP server", "listen_address", listenAddr)
 	err = router.Serve(listenAddr)
 	if err != nil {
