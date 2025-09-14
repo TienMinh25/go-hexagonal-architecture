@@ -6,6 +6,7 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	storagepostgres "github.com/TienMinh25/go-hexagonal-architecture/infrastructure/storage/postgres"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/repository/model"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domaincategory "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/category"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
@@ -39,12 +40,15 @@ func (cr *categoryRepository) CreateCategory(ctx context.Context, category *doma
 		return nil, err
 	}
 
+	var returnCategory model.Category
+
 	err = cr.db.QueryRow(ctx, sql, args...).Scan(
-		&category.ID,
-		&category.Name,
-		&category.CreatedAt,
-		&category.UpdatedAt,
+		&returnCategory.ID,
+		&returnCategory.Name,
+		&returnCategory.CreatedAt,
+		&returnCategory.UpdatedAt,
 	)
+
 	if err != nil {
 		if errCode := cr.db.ErrorCode(err); errCode == "23505" {
 			return nil, domain.ErrConflictingData
@@ -52,13 +56,11 @@ func (cr *categoryRepository) CreateCategory(ctx context.Context, category *doma
 		return nil, err
 	}
 
-	return category, nil
+	return returnCategory.ToDomain(), nil
 }
 
 // GetCategoryByID retrieves a category record from the database by id
 func (cr *categoryRepository) GetCategoryByID(ctx context.Context, id uint64) (*domaincategory.Category, error) {
-	var category domaincategory.Category
-
 	query := cr.db.QueryBuilder.Select("*").
 		From("categories").
 		Where(sq.Eq{"id": id}).
@@ -69,11 +71,13 @@ func (cr *categoryRepository) GetCategoryByID(ctx context.Context, id uint64) (*
 		return nil, err
 	}
 
+	var returnCategory model.Category
+
 	err = cr.db.QueryRow(ctx, sql, args...).Scan(
-		&category.ID,
-		&category.Name,
-		&category.CreatedAt,
-		&category.UpdatedAt,
+		&returnCategory.ID,
+		&returnCategory.Name,
+		&returnCategory.CreatedAt,
+		&returnCategory.UpdatedAt,
 	)
 	if err != nil {
 		if err == pgx.ErrNoRows {
@@ -82,12 +86,12 @@ func (cr *categoryRepository) GetCategoryByID(ctx context.Context, id uint64) (*
 		return nil, err
 	}
 
-	return &category, nil
+	return returnCategory.ToDomain(), nil
 }
 
 // ListCategories retrieves a list of categories from the database
 func (cr *categoryRepository) ListCategories(ctx context.Context, skip, limit uint64) ([]domaincategory.Category, error) {
-	var category domaincategory.Category
+	var category model.Category
 	var categories []domaincategory.Category
 
 	query := cr.db.QueryBuilder.Select("*").
@@ -117,7 +121,7 @@ func (cr *categoryRepository) ListCategories(ctx context.Context, skip, limit ui
 			return nil, err
 		}
 
-		categories = append(categories, category)
+		categories = append(categories, *category.ToDomain())
 	}
 
 	return categories, nil
@@ -136,11 +140,13 @@ func (cr *categoryRepository) UpdateCategory(ctx context.Context, category *doma
 		return nil, err
 	}
 
+	var updatedCategory model.Category
+
 	err = cr.db.QueryRow(ctx, sql, args...).Scan(
-		&category.ID,
-		&category.Name,
-		&category.CreatedAt,
-		&category.UpdatedAt,
+		&updatedCategory.ID,
+		&updatedCategory.Name,
+		&updatedCategory.CreatedAt,
+		&updatedCategory.UpdatedAt,
 	)
 	if err != nil {
 		if errCode := cr.db.ErrorCode(err); errCode == "23505" {
@@ -149,7 +155,7 @@ func (cr *categoryRepository) UpdateCategory(ctx context.Context, category *doma
 		return nil, err
 	}
 
-	return category, nil
+	return updatedCategory.ToDomain(), nil
 }
 
 // DeleteCategory deletes a category record from the database by id
