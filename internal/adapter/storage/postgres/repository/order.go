@@ -9,12 +9,12 @@ import (
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainorder "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/order"
 	domainproduct "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/product"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/jackc/pgx/v5"
 )
 
 /**
- * orderRepository implements portout.OrderRepository interface
+ * orderRepository implements port.OrderRepository interface
  * and provides an access to the postgres database
  */
 type orderRepository struct {
@@ -22,7 +22,7 @@ type orderRepository struct {
 }
 
 // NewOrderRepository creates a new order repository instance
-func NewOrderRepository(db *postgres.DB) portout.OrderRepository {
+func NewOrderRepository(db *postgres.DB) port.OrderRepository {
 	return &orderRepository{
 		db,
 	}

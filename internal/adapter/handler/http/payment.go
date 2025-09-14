@@ -2,18 +2,18 @@ package http
 
 import (
 	domainpayment "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/payment"
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
 // PaymentHandler represents the HTTP handler for payment-related requests
 type PaymentHandler struct {
-	svc portin.PaymentService
+	svc port.PaymentService
 }
 
 // NewPaymentHandler creates a new PaymentHandler instance
-func NewPaymentHandler(svc portin.PaymentService) *PaymentHandler {
+func NewPaymentHandler(svc port.PaymentService) *PaymentHandler {
 	return &PaymentHandler{
 		svc,
 	}

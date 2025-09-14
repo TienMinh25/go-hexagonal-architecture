@@ -8,26 +8,27 @@ import (
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainpayment "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/payment"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/jackc/pgx/v5"
 )
 
 /**
- * PaymentRepository implements port.PaymentRepository interface
+ * paymentRepository implements port.PaymentRepository interface
  * and provides an access to the postgres database
  */
-type PaymentRepository struct {
+type paymentRepository struct {
 	db *postgres.DB
 }
 
 // NewPaymentRepository creates a new payment repository instance
-func NewPaymentRepository(db *postgres.DB) *PaymentRepository {
-	return &PaymentRepository{
+func NewPaymentRepository(db *postgres.DB) port.PaymentRepository {
+	return &paymentRepository{
 		db,
 	}
 }
 
 // CreatePayment creates a new payment record in the database
-func (pr *PaymentRepository) CreatePayment(ctx context.Context, payment *domainpayment.Payment) (*domainpayment.Payment, error) {
+func (pr *paymentRepository) CreatePayment(ctx context.Context, payment *domainpayment.Payment) (*domainpayment.Payment, error) {
 	query := pr.db.QueryBuilder.Insert("payments").
 		Columns("name", "type", "logo").
 		Values(payment.Name, payment.Type, payment.Logo).
@@ -57,7 +58,7 @@ func (pr *PaymentRepository) CreatePayment(ctx context.Context, payment *domainp
 }
 
 // GetPaymentByID retrieves a payment record from the database by id
-func (pr *PaymentRepository) GetPaymentByID(ctx context.Context, id uint64) (*domainpayment.Payment, error) {
+func (pr *paymentRepository) GetPaymentByID(ctx context.Context, id uint64) (*domainpayment.Payment, error) {
 	var payment domainpayment.Payment
 
 	query := pr.db.QueryBuilder.Select("*").
@@ -89,7 +90,7 @@ func (pr *PaymentRepository) GetPaymentByID(ctx context.Context, id uint64) (*do
 }
 
 // ListPayments retrieves a list of payments from the database
-func (pr *PaymentRepository) ListPayments(ctx context.Context, skip, limit uint64) ([]domainpayment.Payment, error) {
+func (pr *paymentRepository) ListPayments(ctx context.Context, skip, limit uint64) ([]domainpayment.Payment, error) {
 	var payment domainpayment.Payment
 	var payments []domainpayment.Payment
 
@@ -129,7 +130,7 @@ func (pr *PaymentRepository) ListPayments(ctx context.Context, skip, limit uint6
 }
 
 // UpdatePayment updates a payment record in the database
-func (pr *PaymentRepository) UpdatePayment(ctx context.Context, payment *domainpayment.Payment) (*domainpayment.Payment, error) {
+func (pr *paymentRepository) UpdatePayment(ctx context.Context, payment *domainpayment.Payment) (*domainpayment.Payment, error) {
 	name := nullString(payment.Name)
 	paymentType := nullString(string(payment.Type))
 	logo := nullString(payment.Logo)
@@ -166,7 +167,7 @@ func (pr *PaymentRepository) UpdatePayment(ctx context.Context, payment *domainp
 }
 
 // DeletePayment deletes a payment record from the database by id
-func (pr *PaymentRepository) DeletePayment(ctx context.Context, id uint64) error {
+func (pr *paymentRepository) DeletePayment(ctx context.Context, id uint64) error {
 	query := pr.db.QueryBuilder.Delete("payments").
 		Where(sq.Eq{"id": id})
 

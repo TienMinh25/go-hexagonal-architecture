@@ -1,11 +1,10 @@
-//go:generate mockgen -source=cache.go -destination=../../mock/cache.go -package=mock
-package portout
+//go:generate mockgen -source=cache.go -destination=../mock/cache.go -package=mock
+package port
 
 import (
 	"context"
 	"time"
 )
-
 
 // CacheRepository is an interface for interacting with cache-related business logic
 type CacheRepository interface {

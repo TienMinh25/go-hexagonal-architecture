@@ -5,22 +5,22 @@ import (
 
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domaincategory "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/category"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/util"
 )
 
 /**
- * categoryUsecase implements portin.CategoryService interface
+ * categoryUsecase implements port.CategoryService interface
  * and provides an access to the category repository
  * and cache service
  */
 type categoryUsecase struct {
-	repo  portout.CategoryRepository
-	cache portout.CacheRepository
+	repo  port.CategoryRepository
+	cache port.CacheRepository
 }
 
 // NewCategoryUsecase creates a new category service instance
-func NewCategoryUsecase(repo portout.CategoryRepository, cache portout.CacheRepository) *categoryUsecase {
+func NewCategoryUsecase(repo port.CategoryRepository, cache port.CacheRepository) *categoryUsecase {
 	return &categoryUsecase{
 		repo,
 		cache,

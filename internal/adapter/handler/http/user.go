@@ -2,18 +2,18 @@ package http
 
 import (
 	domainuser "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/user"
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
 // UserHandler represents the HTTP handler for user-related requests
 type UserHandler struct {
-	svc portin.UserService
+	svc port.UserService
 }
 
 // NewUserHandler creates a new UserHandler instance
-func NewUserHandler(svc portin.UserService) *UserHandler {
+func NewUserHandler(svc port.UserService) *UserHandler {
 	return &UserHandler{
 		svc,
 	}

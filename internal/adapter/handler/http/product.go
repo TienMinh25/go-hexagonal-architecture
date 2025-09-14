@@ -2,18 +2,18 @@ package http
 
 import (
 	domainproduct "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/product"
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
 // ProductHandler represents the HTTP handler for product-related requests
 type ProductHandler struct {
-	svc portin.ProductService
+	svc port.ProductService
 }
 
 // NewProductHandler creates a new ProductHandler instance
-func NewProductHandler(svc portin.ProductService) *ProductHandler {
+func NewProductHandler(svc port.ProductService) *ProductHandler {
 	return &ProductHandler{
 		svc,
 	}

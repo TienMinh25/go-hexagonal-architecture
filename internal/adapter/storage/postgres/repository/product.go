@@ -8,26 +8,27 @@ import (
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainproduct "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/product"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/jackc/pgx/v5"
 )
 
 /**
- * ProductRepository implements port.ProductRepository interface
+ * productRepository implements port.ProductRepository interface
  * and provides an access to the postgres database
  */
-type ProductRepository struct {
+type productRepository struct {
 	db *postgres.DB
 }
 
 // NewProductRepository creates a new product repository instance
-func NewProductRepository(db *postgres.DB) *ProductRepository {
-	return &ProductRepository{
+func NewProductRepository(db *postgres.DB) port.ProductRepository {
+	return &productRepository{
 		db,
 	}
 }
 
 // CreateProduct creates a new product record in the database
-func (pr *ProductRepository) CreateProduct(ctx context.Context, product *domainproduct.Product) (*domainproduct.Product, error) {
+func (pr *productRepository) CreateProduct(ctx context.Context, product *domainproduct.Product) (*domainproduct.Product, error) {
 	query := pr.db.QueryBuilder.Insert("products").
 		Columns("category_id", "name", "image", "price", "stock").
 		Values(product.CategoryID, product.Name, product.Image, product.Price, product.Stock).
@@ -60,7 +61,7 @@ func (pr *ProductRepository) CreateProduct(ctx context.Context, product *domainp
 }
 
 // GetProductByID retrieves a product record from the database by id
-func (pr *ProductRepository) GetProductByID(ctx context.Context, id uint64) (*domainproduct.Product, error) {
+func (pr *productRepository) GetProductByID(ctx context.Context, id uint64) (*domainproduct.Product, error) {
 	var product domainproduct.Product
 
 	query := pr.db.QueryBuilder.Select("*").
@@ -95,7 +96,7 @@ func (pr *ProductRepository) GetProductByID(ctx context.Context, id uint64) (*do
 }
 
 // ListProducts retrieves a list of products from the database
-func (pr *ProductRepository) ListProducts(ctx context.Context, search string, categoryId, skip, limit uint64) ([]domainproduct.Product, error) {
+func (pr *productRepository) ListProducts(ctx context.Context, search string, categoryId, skip, limit uint64) ([]domainproduct.Product, error) {
 	var product domainproduct.Product
 	var products []domainproduct.Product
 
@@ -146,7 +147,7 @@ func (pr *ProductRepository) ListProducts(ctx context.Context, search string, ca
 }
 
 // UpdateProduct updates a product record in the database
-func (pr *ProductRepository) UpdateProduct(ctx context.Context, product *domainproduct.Product) (*domainproduct.Product, error) {
+func (pr *productRepository) UpdateProduct(ctx context.Context, product *domainproduct.Product) (*domainproduct.Product, error) {
 	categoryId := nullUint64(product.CategoryID)
 	name := nullString(product.Name)
 	image := nullString(product.Image)
@@ -190,7 +191,7 @@ func (pr *ProductRepository) UpdateProduct(ctx context.Context, product *domainp
 }
 
 // DeleteProduct deletes a product record from the database by id
-func (pr *ProductRepository) DeleteProduct(ctx context.Context, id uint64) error {
+func (pr *productRepository) DeleteProduct(ctx context.Context, id uint64) error {
 	query := pr.db.QueryBuilder.Delete("products").
 		Where(sq.Eq{"id": id})
 

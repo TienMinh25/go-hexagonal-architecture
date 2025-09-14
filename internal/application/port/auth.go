@@ -1,5 +1,5 @@
-//go:generate mockgen -source=auth.go -destination=../../mock/auth.go -package=mock
-package portin
+//go:generate mockgen -source=auth.go -destination=../mock/auth.go -package=mock
+package port
 
 import (
 	"context"

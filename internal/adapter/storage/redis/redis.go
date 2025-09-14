@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/config"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -18,7 +18,7 @@ type Redis struct {
 }
 
 // New creates a new instance of Redis
-func New(ctx context.Context, config *config.Redis) (portout.CacheRepository, error) {
+func New(ctx context.Context, config *config.Redis) (port.CacheRepository, error) {
 	client := redis.NewClient(&redis.Options{
 		Addr:     config.Addr,
 		Password: config.Password,

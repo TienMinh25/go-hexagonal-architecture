@@ -5,7 +5,7 @@ import (
 
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainuser "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/user"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +19,7 @@ const (
 )
 
 // authMiddleware is a middleware to check if the user is authenticated
-func authMiddleware(token portout.TokenService) gin.HandlerFunc {
+func authMiddleware(token port.TokenService) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		authorizationHeader := ctx.GetHeader(authorizationHeaderKey)
 

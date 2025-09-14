@@ -4,23 +4,22 @@ import (
 	"context"
 
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/util"
 )
 
 /**
- * authUsecase implements portin.AuthService interface
+ * authUsecase implements port.AuthService interface
  * and provides an access to the user repository
  * and token service
  */
 type authUsecase struct {
-	repo portout.UserRepository
-	ts   portout.TokenService
+	repo port.UserRepository
+	ts   port.TokenService
 }
 
 // NewAuthUsecase creates a new auth service instance
-func NewAuthUsecase(repo portout.UserRepository, ts portout.TokenService) portin.AuthService {
+func NewAuthUsecase(repo port.UserRepository, ts port.TokenService) port.AuthService {
 	return &authUsecase{
 		repo: repo,
 		ts:   ts,

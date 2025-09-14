@@ -8,26 +8,27 @@ import (
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainuser "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/user"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/jackc/pgx/v5"
 )
 
 /**
- * UserRepository implements port.UserRepository interface
+ * userRepository implements port.UserRepository interface
  * and provides an access to the postgres database
  */
-type UserRepository struct {
+type userRepository struct {
 	db *postgres.DB
 }
 
 // NewUserRepository creates a new user repository instance
-func NewUserRepository(db *postgres.DB) *UserRepository {
-	return &UserRepository{
+func NewUserRepository(db *postgres.DB) port.UserRepository {
+	return &userRepository{
 		db,
 	}
 }
 
 // CreateUser creates a new user in the database
-func (ur *UserRepository) CreateUser(ctx context.Context, user *domainuser.User) (*domainuser.User, error) {
+func (ur *userRepository) CreateUser(ctx context.Context, user *domainuser.User) (*domainuser.User, error) {
 	query := ur.db.QueryBuilder.Insert("users").
 		Columns("name", "email", "password").
 		Values(user.Name, user.Email, user.Password).
@@ -58,7 +59,7 @@ func (ur *UserRepository) CreateUser(ctx context.Context, user *domainuser.User)
 }
 
 // GetUserByID gets a user by ID from the database
-func (ur *UserRepository) GetUserByID(ctx context.Context, id uint64) (*domainuser.User, error) {
+func (ur *userRepository) GetUserByID(ctx context.Context, id uint64) (*domainuser.User, error) {
 	var user domainuser.User
 
 	query := ur.db.QueryBuilder.Select("*").
@@ -91,7 +92,7 @@ func (ur *UserRepository) GetUserByID(ctx context.Context, id uint64) (*domainus
 }
 
 // GetUserByEmailAndPassword gets a user by email from the database
-func (ur *UserRepository) GetUserByEmail(ctx context.Context, email string) (*domainuser.User, error) {
+func (ur *userRepository) GetUserByEmail(ctx context.Context, email string) (*domainuser.User, error) {
 	var user domainuser.User
 
 	query := ur.db.QueryBuilder.Select("*").
@@ -124,7 +125,7 @@ func (ur *UserRepository) GetUserByEmail(ctx context.Context, email string) (*do
 }
 
 // ListUsers lists all users from the database
-func (ur *UserRepository) ListUsers(ctx context.Context, skip, limit uint64) ([]domainuser.User, error) {
+func (ur *userRepository) ListUsers(ctx context.Context, skip, limit uint64) ([]domainuser.User, error) {
 	var user domainuser.User
 	var users []domainuser.User
 
@@ -166,7 +167,7 @@ func (ur *UserRepository) ListUsers(ctx context.Context, skip, limit uint64) ([]
 }
 
 // UpdateUser updates a user by ID in the database
-func (ur *UserRepository) UpdateUser(ctx context.Context, user *domainuser.User) (*domainuser.User, error) {
+func (ur *userRepository) UpdateUser(ctx context.Context, user *domainuser.User) (*domainuser.User, error) {
 	name := nullString(user.Name)
 	email := nullString(user.Email)
 	password := nullString(user.Password)
@@ -206,7 +207,7 @@ func (ur *UserRepository) UpdateUser(ctx context.Context, user *domainuser.User)
 }
 
 // DeleteUser deletes a user by ID from the database
-func (ur *UserRepository) DeleteUser(ctx context.Context, id uint64) error {
+func (ur *userRepository) DeleteUser(ctx context.Context, id uint64) error {
 	query := ur.db.QueryBuilder.Delete("users").
 		Where(sq.Eq{"id": id})
 

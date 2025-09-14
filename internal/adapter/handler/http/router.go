@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/config"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -23,7 +23,7 @@ type Router struct {
 // NewRouter creates a new HTTP router
 func NewRouter(
 	config *config.HTTP,
-	token portout.TokenService,
+	token port.TokenService,
 	userHandler UserHandler,
 	authHandler AuthHandler,
 	paymentHandler PaymentHandler,

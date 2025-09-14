@@ -8,7 +8,7 @@ import (
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainauth "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/auth"
 	domainuser "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/user"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/google/uuid"
 )
 
@@ -24,7 +24,7 @@ type pasetoToken struct {
 }
 
 // New creates a new paseto instance
-func New(config *config.Token) (portout.TokenService, error) {
+func New(config *config.Token) (port.TokenService, error) {
 	durationStr := config.Duration
 	duration, err := time.ParseDuration(durationStr)
 	if err != nil {

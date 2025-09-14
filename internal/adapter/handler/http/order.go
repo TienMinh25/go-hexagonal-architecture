@@ -2,18 +2,18 @@ package http
 
 import (
 	domainorder "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/order"
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
 // OrderHandler represents the HTTP handler for order-related requests
 type OrderHandler struct {
-	svc portin.OrderService
+	svc port.OrderService
 }
 
 // NewOrderHandler creates a new OrderHandler instance
-func NewOrderHandler(svc portin.OrderService) *OrderHandler {
+func NewOrderHandler(svc port.OrderService) *OrderHandler {
 	return &OrderHandler{
 		svc,
 	}

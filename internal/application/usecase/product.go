@@ -5,24 +5,23 @@ import (
 
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainproduct "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/product"
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/util"
 )
 
 /**
- * productUsecase implements portin.ProductService and portin.CategoryService
+ * productUsecase implements port.ProductService and port.CategoryService
  * interfaces and provides an access to the product and category repositories
  * and cache service
  */
 type productUsecase struct {
-	productRepo  portout.ProductRepository
-	categoryRepo portout.CategoryRepository
-	cache        portout.CacheRepository
+	productRepo  port.ProductRepository
+	categoryRepo port.CategoryRepository
+	cache        port.CacheRepository
 }
 
 // NewProductUsecase creates a new product service instance
-func NewProductUsecase(productRepo portout.ProductRepository, categoryRepo portout.CategoryRepository, cache portout.CacheRepository) portin.ProductService {
+func NewProductUsecase(productRepo port.ProductRepository, categoryRepo port.CategoryRepository, cache port.CacheRepository) port.ProductService {
 	return &productUsecase{
 		productRepo,
 		categoryRepo,

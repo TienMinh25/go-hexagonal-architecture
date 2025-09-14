@@ -1,5 +1,5 @@
-//go:generate mockgen -source=token.go -destination=../../mock/token.go -package=mock
-package portout
+//go:generate mockgen -source=token.go -destination=../mock/token.go -package=mock
+package port
 
 import (
 	domainauth "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/auth"

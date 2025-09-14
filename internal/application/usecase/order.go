@@ -5,27 +5,26 @@ import (
 
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainorder "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/order"
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/util"
 )
 
 /**
- * orderUsecase implements portin.OrderService
+ * orderUsecase implements port.OrderService
  */
 type orderUsecase struct {
-	orderRepo    portout.OrderRepository
-	productRepo  portout.ProductRepository
-	categoryRepo portout.CategoryRepository
-	userRepo     portout.UserRepository
-	paymentRepo  portout.PaymentRepository
-	cache        portout.CacheRepository
+	orderRepo    port.OrderRepository
+	productRepo  port.ProductRepository
+	categoryRepo port.CategoryRepository
+	userRepo     port.UserRepository
+	paymentRepo  port.PaymentRepository
+	cache        port.CacheRepository
 }
 
 // NewOrderUsecase creates a new order service instance
-func NewOrderUsecase(orderRepo portout.OrderRepository, productRepo portout.ProductRepository,
-	categoryRepo portout.CategoryRepository, userRepo portout.UserRepository,
-	paymentRepo portout.PaymentRepository, cache portout.CacheRepository) portin.OrderService {
+func NewOrderUsecase(orderRepo port.OrderRepository, productRepo port.ProductRepository,
+	categoryRepo port.CategoryRepository, userRepo port.UserRepository,
+	paymentRepo port.PaymentRepository, cache port.CacheRepository) port.OrderService {
 	return &orderUsecase{
 		orderRepo,
 		productRepo,

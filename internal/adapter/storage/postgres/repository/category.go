@@ -8,12 +8,12 @@ import (
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domaincategory "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/category"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/jackc/pgx/v5"
 )
 
 /**
- * categoryRepository implements portout.CategoryRepository interface
+ * categoryRepository implements port.CategoryRepository interface
  * and provides an access to the postgres database
  */
 type categoryRepository struct {
@@ -21,7 +21,7 @@ type categoryRepository struct {
 }
 
 // NewCategoryRepository creates a new category repository instance
-func NewCategoryRepository(db *postgres.DB) portout.CategoryRepository {
+func NewCategoryRepository(db *postgres.DB) port.CategoryRepository {
 	return &categoryRepository{
 		db,
 	}

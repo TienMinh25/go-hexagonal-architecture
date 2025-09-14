@@ -5,23 +5,22 @@ import (
 
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainpayment "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/payment"
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/util"
 )
 
 /**
- * paymentUsecase implements portin.PaymentService interface
+ * paymentUsecase implements port.PaymentService interface
  * and provides an access to the payment repository
  * and cache service
  */
 type paymentUsecase struct {
-	repo  portout.PaymentRepository
-	cache portout.CacheRepository
+	repo  port.PaymentRepository
+	cache port.CacheRepository
 }
 
 // NewPaymentUsecase creates a new payment service instance
-func NewPaymentUsecase(repo portout.PaymentRepository, cache portout.CacheRepository) portin.PaymentService {
+func NewPaymentUsecase(repo port.PaymentRepository, cache port.CacheRepository) port.PaymentService {
 	return &paymentUsecase{
 		repo,
 		cache,

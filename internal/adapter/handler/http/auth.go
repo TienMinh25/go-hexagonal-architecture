@@ -1,18 +1,18 @@
 package http
 
 import (
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
 // AuthHandler represents the HTTP handler for authentication-related requests
 type AuthHandler struct {
-	svc portin.AuthService
+	svc port.AuthService
 }
 
 // NewAuthHandler creates a new AuthHandler instance
-func NewAuthHandler(svc portin.AuthService) *AuthHandler {
+func NewAuthHandler(svc port.AuthService) *AuthHandler {
 	return &AuthHandler{
 		svc,
 	}

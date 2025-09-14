@@ -2,18 +2,18 @@ package http
 
 import (
 	domaincategory "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/category"
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
 // CategoryHandler represents the HTTP handler for category-related requests
 type CategoryHandler struct {
-	svc portin.CategoryService
+	svc port.CategoryService
 }
 
 // NewCategoryHandler creates a new CategoryHandler instance
-func NewCategoryHandler(svc portin.CategoryService) *CategoryHandler {
+func NewCategoryHandler(svc port.CategoryService) *CategoryHandler {
 	return &CategoryHandler{
 		svc,
 	}

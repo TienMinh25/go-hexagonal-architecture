@@ -5,23 +5,22 @@ import (
 
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domainuser "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/user"
-	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
-	portout "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/out"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/port"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/util"
 )
 
 /**
- * userUsecase implements portin.UserService interface
+ * userUsecase implements port.UserService interface
  * and provides an access to the user repository
  * and cache service
  */
 type userUsecase struct {
-	repo  portout.UserRepository
-	cache portout.CacheRepository
+	repo  port.UserRepository
+	cache port.CacheRepository
 }
 
 // NewUserUsecase creates a new user service instance
-func NewUserUsecase(repo portout.UserRepository, cache portout.CacheRepository) portin.UserService {
+func NewUserUsecase(repo port.UserRepository, cache port.CacheRepository) port.UserService {
 	return &userUsecase{
 		repo,
 		cache,
