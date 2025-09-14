@@ -1,8 +1,8 @@
 package http
 
 import (
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,14 +25,14 @@ func NewAuthHandler(svc portin.AuthService) *AuthHandler {
 //	@Tags			Users
 //	@Accept			json
 //	@Produce		json
-//	@Param			request	body		dto.LoginRequest	true	"Login request body"
-//	@Success		200		{object}	dto.AuthResponse	"Succesfully logged in"
-//	@Failure		400		{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		401		{object}	dto.ErrorResponse	"Unauthorized error"
-//	@Failure		500		{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			request	body		modelv1.LoginRequest	true	"Login request body"
+//	@Success		200		{object}	modelv1.AuthResponse	"Succesfully logged in"
+//	@Failure		400		{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		401		{object}	modelv1.ErrorResponse	"Unauthorized error"
+//	@Failure		500		{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/users/login [post]
 func (ah *AuthHandler) Login(ctx *gin.Context) {
-	var req dto.LoginRequest
+	var req modelv1.LoginRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -45,7 +45,7 @@ func (ah *AuthHandler) Login(ctx *gin.Context) {
 		return
 	}
 
-	rsp := dto.NewAuthResponse(token)
+	rsp := newAuthResponse(token)
 
 	handleSuccess(ctx, rsp)
 }

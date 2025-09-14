@@ -1,4 +1,4 @@
-package dto
+package modelv1
 
 // LoginRequest represents the request body for logging in a user
 type LoginRequest struct {
@@ -9,11 +9,4 @@ type LoginRequest struct {
 // AuthResponse represents an authentication response body
 type AuthResponse struct {
 	AccessToken string `json:"token" example:"v2.local.Gdh5kiOTyyaQ3_bNykYDeYHO21Jg2..."`
-}
-
-// NewAuthResponse is a helper function to create a response body for handling authentication data
-func NewAuthResponse(token string) AuthResponse {
-	return AuthResponse{
-		AccessToken: token,
-	}
 }

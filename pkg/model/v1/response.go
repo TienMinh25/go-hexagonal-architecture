@@ -1,4 +1,4 @@
-package dto
+package modelv1
 
 // ErrorResponse represents an error response body format
 type ErrorResponse struct {

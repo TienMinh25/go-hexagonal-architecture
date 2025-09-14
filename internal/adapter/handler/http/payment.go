@@ -1,9 +1,9 @@
 package http
 
 import (
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	domainpayment "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/payment"
 	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
@@ -26,18 +26,18 @@ func NewPaymentHandler(svc portin.PaymentService) *PaymentHandler {
 //	@Tags			Payments
 //	@Accept			json
 //	@Produce		json
-//	@Param			createPaymentRequest	body		dto.CreatePaymentRequest	true	"Create payment request"
-//	@Success		200						{object}	dto.PaymentResponse			"Payment created"
-//	@Failure		400						{object}	dto.ErrorResponse			"Validation error"
-//	@Failure		401						{object}	dto.ErrorResponse			"Unauthorized error"
-//	@Failure		403						{object}	dto.ErrorResponse			"Forbidden error"
-//	@Failure		404						{object}	dto.ErrorResponse			"Data not found error"
-//	@Failure		409						{object}	dto.ErrorResponse			"Data conflict error"
-//	@Failure		500						{object}	dto.ErrorResponse			"Internal server error"
+//	@Param			createPaymentRequest	body		modelv1.CreatePaymentRequest	true	"Create payment request"
+//	@Success		200						{object}	modelv1.PaymentResponse			"Payment created"
+//	@Failure		400						{object}	modelv1.ErrorResponse			"Validation error"
+//	@Failure		401						{object}	modelv1.ErrorResponse			"Unauthorized error"
+//	@Failure		403						{object}	modelv1.ErrorResponse			"Forbidden error"
+//	@Failure		404						{object}	modelv1.ErrorResponse			"Data not found error"
+//	@Failure		409						{object}	modelv1.ErrorResponse			"Data conflict error"
+//	@Failure		500						{object}	modelv1.ErrorResponse			"Internal server error"
 //	@Router			/payments [post]
 //	@Security		BearerAuth
 func (ph *PaymentHandler) CreatePayment(ctx *gin.Context) {
-	var req dto.CreatePaymentRequest
+	var req modelv1.CreatePaymentRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -67,15 +67,15 @@ func (ph *PaymentHandler) CreatePayment(ctx *gin.Context) {
 //	@Tags			Payments
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		int				true	"Payment ID"
-//	@Success		200	{object}	dto.PaymentResponse	"Payment retrieved"
-//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
-//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			id	path		int						true	"Payment ID"
+//	@Success		200	{object}	modelv1.PaymentResponse	"Payment retrieved"
+//	@Failure		400	{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		404	{object}	modelv1.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/payments/{id} [get]
 //	@Security		BearerAuth
 func (ph *PaymentHandler) GetPayment(ctx *gin.Context) {
-	var req dto.GetPaymentRequest
+	var req modelv1.GetPaymentRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -99,16 +99,16 @@ func (ph *PaymentHandler) GetPayment(ctx *gin.Context) {
 //	@Tags			Payments
 //	@Accept			json
 //	@Produce		json
-//	@Param			skip	query		uint64			true	"Skip"
-//	@Param			limit	query		uint64			true	"Limit"
-//	@Success		200		{object}	dto.Meta			"Payments displayed"
-//	@Failure		400		{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		500		{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			skip	query		uint64					true	"Skip"
+//	@Param			limit	query		uint64					true	"Limit"
+//	@Success		200		{object}	modelv1.Meta			"Payments displayed"
+//	@Failure		400		{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		500		{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/payments [get]
 //	@Security		BearerAuth
 func (ph *PaymentHandler) ListPayments(ctx *gin.Context) {
-	var req dto.ListPaymentsRequest
-	var paymentsList []dto.PaymentResponse
+	var req modelv1.ListPaymentsRequest
+	var paymentsList []modelv1.PaymentResponse
 
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 		validationError(ctx, err)
@@ -139,19 +139,19 @@ func (ph *PaymentHandler) ListPayments(ctx *gin.Context) {
 //	@Tags			Payments
 //	@Accept			json
 //	@Produce		json
-//	@Param			id						path		int						true	"Payment ID"
-//	@Param			updatePaymentRequest	body		dto.UpdatePaymentRequest	true	"Update payment request"
-//	@Success		200						{object}	dto.PaymentResponse			"Payment updated"
-//	@Failure		400						{object}	dto.ErrorResponse			"Validation error"
-//	@Failure		401						{object}	dto.ErrorResponse			"Unauthorized error"
-//	@Failure		403						{object}	dto.ErrorResponse			"Forbidden error"
-//	@Failure		404						{object}	dto.ErrorResponse			"Data not found error"
-//	@Failure		409						{object}	dto.ErrorResponse			"Data conflict error"
-//	@Failure		500						{object}	dto.ErrorResponse			"Internal server error"
+//	@Param			id						path		int								true	"Payment ID"
+//	@Param			updatePaymentRequest	body		modelv1.UpdatePaymentRequest	true	"Update payment request"
+//	@Success		200						{object}	modelv1.PaymentResponse			"Payment updated"
+//	@Failure		400						{object}	modelv1.ErrorResponse			"Validation error"
+//	@Failure		401						{object}	modelv1.ErrorResponse			"Unauthorized error"
+//	@Failure		403						{object}	modelv1.ErrorResponse			"Forbidden error"
+//	@Failure		404						{object}	modelv1.ErrorResponse			"Data not found error"
+//	@Failure		409						{object}	modelv1.ErrorResponse			"Data conflict error"
+//	@Failure		500						{object}	modelv1.ErrorResponse			"Internal server error"
 //	@Router			/payments/{id} [put]
 //	@Security		BearerAuth
 func (ph *PaymentHandler) UpdatePayment(ctx *gin.Context) {
-	var req dto.UpdatePaymentRequest
+	var req modelv1.UpdatePaymentRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -189,17 +189,17 @@ func (ph *PaymentHandler) UpdatePayment(ctx *gin.Context) {
 //	@Tags			Payments
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		uint64			true	"Payment ID"
-//	@Success		200	{object}	dto.Response		"Payment deleted"
-//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		401	{object}	dto.ErrorResponse	"Unauthorized error"
-//	@Failure		403	{object}	dto.ErrorResponse	"Forbidden error"
-//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
-//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			id	path		uint64					true	"Payment ID"
+//	@Success		200	{object}	modelv1.Response		"Payment deleted"
+//	@Failure		400	{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		401	{object}	modelv1.ErrorResponse	"Unauthorized error"
+//	@Failure		403	{object}	modelv1.ErrorResponse	"Forbidden error"
+//	@Failure		404	{object}	modelv1.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/payments/{id} [delete]
 //	@Security		BearerAuth
 func (ph *PaymentHandler) DeletePayment(ctx *gin.Context) {
-	var req dto.DeletePaymentRequest
+	var req modelv1.DeletePaymentRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return

@@ -1,4 +1,4 @@
-package dto
+package modelv1
 
 import domainpayment "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/payment"
 

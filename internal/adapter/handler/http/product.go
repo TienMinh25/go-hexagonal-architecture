@@ -1,9 +1,9 @@
 package http
 
 import (
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	domainproduct "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/product"
 	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
@@ -26,18 +26,18 @@ func NewProductHandler(svc portin.ProductService) *ProductHandler {
 //	@Tags			Products
 //	@Accept			json
 //	@Produce		json
-//	@Param			createProductRequest	body		dto.CreateProductRequest	true	"Create product request"
-//	@Success		200						{object}	dto.ProductResponse			"Product created"
-//	@Failure		400						{object}	dto.ErrorResponse			"Validation error"
-//	@Failure		401						{object}	dto.ErrorResponse			"Unauthorized error"
-//	@Failure		403						{object}	dto.ErrorResponse			"Forbidden error"
-//	@Failure		404						{object}	dto.ErrorResponse			"Data not found error"
-//	@Failure		409						{object}	dto.ErrorResponse			"Data conflict error"
-//	@Failure		500						{object}	dto.ErrorResponse			"Internal server error"
+//	@Param			createProductRequest	body		modelv1.CreateProductRequest	true	"Create product request"
+//	@Success		200						{object}	modelv1.ProductResponse			"Product created"
+//	@Failure		400						{object}	modelv1.ErrorResponse			"Validation error"
+//	@Failure		401						{object}	modelv1.ErrorResponse			"Unauthorized error"
+//	@Failure		403						{object}	modelv1.ErrorResponse			"Forbidden error"
+//	@Failure		404						{object}	modelv1.ErrorResponse			"Data not found error"
+//	@Failure		409						{object}	modelv1.ErrorResponse			"Data conflict error"
+//	@Failure		500						{object}	modelv1.ErrorResponse			"Internal server error"
 //	@Router			/products [post]
 //	@Security		BearerAuth
 func (ph *ProductHandler) CreateProduct(ctx *gin.Context) {
-	var req dto.CreateProductRequest
+	var req modelv1.CreateProductRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -69,15 +69,15 @@ func (ph *ProductHandler) CreateProduct(ctx *gin.Context) {
 //	@Tags			Products
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		uint64			true	"Product ID"
-//	@Success		200	{object}	dto.ProductResponse	"Product retrieved"
-//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
-//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			id	path		uint64					true	"Product ID"
+//	@Success		200	{object}	modelv1.ProductResponse	"Product retrieved"
+//	@Failure		400	{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		404	{object}	modelv1.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/products/{id} [get]
 //	@Security		BearerAuth
 func (ph *ProductHandler) GetProduct(ctx *gin.Context) {
-	var req dto.GetProductRequest
+	var req modelv1.GetProductRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -101,18 +101,18 @@ func (ph *ProductHandler) GetProduct(ctx *gin.Context) {
 //	@Tags			Products
 //	@Accept			json
 //	@Produce		json
-//	@Param			category_id	query		uint64			false	"Category ID"
-//	@Param			q			query		string			false	"Query"
-//	@Param			skip		query		uint64			true	"Skip"
-//	@Param			limit		query		uint64			true	"Limit"
-//	@Success		200			{object}	dto.Meta			"Products retrieved"
-//	@Failure		400			{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		500			{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			category_id	query		uint64					false	"Category ID"
+//	@Param			q			query		string					false	"Query"
+//	@Param			skip		query		uint64					true	"Skip"
+//	@Param			limit		query		uint64					true	"Limit"
+//	@Success		200			{object}	modelv1.Meta			"Products retrieved"
+//	@Failure		400			{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		500			{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/products [get]
 //	@Security		BearerAuth
 func (ph *ProductHandler) ListProducts(ctx *gin.Context) {
-	var req dto.ListProductsRequest
-	var productsList []dto.ProductResponse
+	var req modelv1.ListProductsRequest
+	var productsList []modelv1.ProductResponse
 
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 		validationError(ctx, err)
@@ -143,19 +143,19 @@ func (ph *ProductHandler) ListProducts(ctx *gin.Context) {
 //	@Tags			Products
 //	@Accept			json
 //	@Produce		json
-//	@Param			id						path		uint64					true	"Product ID"
-//	@Param			updateProductRequest	body		dto.UpdateProductRequest	true	"Update product request"
-//	@Success		200						{object}	dto.ProductResponse			"Product updated"
-//	@Failure		400						{object}	dto.ErrorResponse			"Validation error"
-//	@Failure		401						{object}	dto.ErrorResponse			"Unauthorized error"
-//	@Failure		403						{object}	dto.ErrorResponse			"Forbidden error"
-//	@Failure		404						{object}	dto.ErrorResponse			"Data not found error"
-//	@Failure		409						{object}	dto.ErrorResponse			"Data conflict error"
-//	@Failure		500						{object}	dto.ErrorResponse			"Internal server error"
+//	@Param			id						path		uint64							true	"Product ID"
+//	@Param			updateProductRequest	body		modelv1.UpdateProductRequest	true	"Update product request"
+//	@Success		200						{object}	modelv1.ProductResponse			"Product updated"
+//	@Failure		400						{object}	modelv1.ErrorResponse			"Validation error"
+//	@Failure		401						{object}	modelv1.ErrorResponse			"Unauthorized error"
+//	@Failure		403						{object}	modelv1.ErrorResponse			"Forbidden error"
+//	@Failure		404						{object}	modelv1.ErrorResponse			"Data not found error"
+//	@Failure		409						{object}	modelv1.ErrorResponse			"Data conflict error"
+//	@Failure		500						{object}	modelv1.ErrorResponse			"Internal server error"
 //	@Router			/products/{id} [put]
 //	@Security		BearerAuth
 func (ph *ProductHandler) UpdateProduct(ctx *gin.Context) {
-	var req dto.UpdateProductRequest
+	var req modelv1.UpdateProductRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -195,17 +195,17 @@ func (ph *ProductHandler) UpdateProduct(ctx *gin.Context) {
 //	@Tags			Products
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		uint64			true	"Product ID"
-//	@Success		200	{object}	dto.Response		"Product deleted"
-//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		401	{object}	dto.ErrorResponse	"Unauthorized error"
-//	@Failure		403	{object}	dto.ErrorResponse	"Forbidden error"
-//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
-//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			id	path		uint64					true	"Product ID"
+//	@Success		200	{object}	modelv1.Response		"Product deleted"
+//	@Failure		400	{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		401	{object}	modelv1.ErrorResponse	"Unauthorized error"
+//	@Failure		403	{object}	modelv1.ErrorResponse	"Forbidden error"
+//	@Failure		404	{object}	modelv1.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/products/{id} [delete]
 //	@Security		BearerAuth
 func (ph *ProductHandler) DeleteProduct(ctx *gin.Context) {
-	var req dto.DeleteProductRequest
+	var req modelv1.DeleteProductRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return

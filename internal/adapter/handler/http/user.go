@@ -1,9 +1,9 @@
 package http
 
 import (
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	domainuser "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/user"
 	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
@@ -26,16 +26,16 @@ func NewUserHandler(svc portin.UserService) *UserHandler {
 //	@Tags			Users
 //	@Accept			json
 //	@Produce		json
-//	@Param			registerRequest	body		dto.RegisterRequest	true	"Register request"
-//	@Success		200				{object}	dto.UserResponse	"User created"
-//	@Failure		400				{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		401				{object}	dto.ErrorResponse	"Unauthorized error"
-//	@Failure		404				{object}	dto.ErrorResponse	"Data not found error"
-//	@Failure		409				{object}	dto.ErrorResponse	"Data conflict error"
-//	@Failure		500				{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			registerRequest	body		modelv1.RegisterRequest	true	"Register request"
+//	@Success		200				{object}	modelv1.UserResponse	"User created"
+//	@Failure		400				{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		401				{object}	modelv1.ErrorResponse	"Unauthorized error"
+//	@Failure		404				{object}	modelv1.ErrorResponse	"Data not found error"
+//	@Failure		409				{object}	modelv1.ErrorResponse	"Data conflict error"
+//	@Failure		500				{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/users [post]
 func (uh *UserHandler) Register(ctx *gin.Context) {
-	var req dto.RegisterRequest
+	var req modelv1.RegisterRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -65,16 +65,16 @@ func (uh *UserHandler) Register(ctx *gin.Context) {
 //	@Tags			Users
 //	@Accept			json
 //	@Produce		json
-//	@Param			skip	query		uint64			true	"Skip"
-//	@Param			limit	query		uint64			true	"Limit"
-//	@Success		200		{object}	dto.Meta			"Users displayed"
-//	@Failure		400		{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		500		{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			skip	query		uint64					true	"Skip"
+//	@Param			limit	query		uint64					true	"Limit"
+//	@Success		200		{object}	modelv1.Meta			"Users displayed"
+//	@Failure		400		{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		500		{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/users [get]
 //	@Security		BearerAuth
 func (uh *UserHandler) ListUsers(ctx *gin.Context) {
-	var req dto.ListUsersRequest
-	var usersList []dto.UserResponse
+	var req modelv1.ListUsersRequest
+	var usersList []modelv1.UserResponse
 
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 		validationError(ctx, err)
@@ -105,15 +105,15 @@ func (uh *UserHandler) ListUsers(ctx *gin.Context) {
 //	@Tags			Users
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		uint64			true	"User ID"
-//	@Success		200	{object}	dto.UserResponse	"User displayed"
-//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
-//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			id	path		uint64					true	"User ID"
+//	@Success		200	{object}	modelv1.UserResponse	"User displayed"
+//	@Failure		400	{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		404	{object}	modelv1.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/users/{id} [get]
 //	@Security		BearerAuth
 func (uh *UserHandler) GetUser(ctx *gin.Context) {
-	var req dto.GetUserRequest
+	var req modelv1.GetUserRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -137,18 +137,18 @@ func (uh *UserHandler) GetUser(ctx *gin.Context) {
 //	@Tags			Users
 //	@Accept			json
 //	@Produce		json
-//	@Param			id					path		uint64				true	"User ID"
-//	@Param			updateUserRequest	body		dto.UpdateUserRequest	true	"Update user request"
-//	@Success		200					{object}	dto.UserResponse		"User updated"
-//	@Failure		400					{object}	dto.ErrorResponse		"Validation error"
-//	@Failure		401					{object}	dto.ErrorResponse		"Unauthorized error"
-//	@Failure		403					{object}	dto.ErrorResponse		"Forbidden error"
-//	@Failure		404					{object}	dto.ErrorResponse		"Data not found error"
-//	@Failure		500					{object}	dto.ErrorResponse		"Internal server error"
+//	@Param			id					path		uint64						true	"User ID"
+//	@Param			updateUserRequest	body		modelv1.UpdateUserRequest	true	"Update user request"
+//	@Success		200					{object}	modelv1.UserResponse		"User updated"
+//	@Failure		400					{object}	modelv1.ErrorResponse		"Validation error"
+//	@Failure		401					{object}	modelv1.ErrorResponse		"Unauthorized error"
+//	@Failure		403					{object}	modelv1.ErrorResponse		"Forbidden error"
+//	@Failure		404					{object}	modelv1.ErrorResponse		"Data not found error"
+//	@Failure		500					{object}	modelv1.ErrorResponse		"Internal server error"
 //	@Router			/users/{id} [put]
 //	@Security		BearerAuth
 func (uh *UserHandler) UpdateUser(ctx *gin.Context) {
-	var req dto.UpdateUserRequest
+	var req modelv1.UpdateUserRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -187,17 +187,17 @@ func (uh *UserHandler) UpdateUser(ctx *gin.Context) {
 //	@Tags			Users
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		uint64			true	"User ID"
-//	@Success		200	{object}	dto.Response		"User deleted"
-//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		401	{object}	dto.ErrorResponse	"Unauthorized error"
-//	@Failure		403	{object}	dto.ErrorResponse	"Forbidden error"
-//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
-//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			id	path		uint64					true	"User ID"
+//	@Success		200	{object}	modelv1.Response		"User deleted"
+//	@Failure		400	{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		401	{object}	modelv1.ErrorResponse	"Unauthorized error"
+//	@Failure		403	{object}	modelv1.ErrorResponse	"Forbidden error"
+//	@Failure		404	{object}	modelv1.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/users/{id} [delete]
 //	@Security		BearerAuth
 func (uh *UserHandler) DeleteUser(ctx *gin.Context) {
-	var req dto.DeleteUserRequest
+	var req modelv1.DeleteUserRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return

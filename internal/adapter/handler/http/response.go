@@ -4,20 +4,20 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domaincategory "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/category"
 	domainorder "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/order"
 	domainpayment "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/payment"
 	domainproduct "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/product"
 	domainuser "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/user"
+	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 )
 
 // newResponse is a helper function to create a response body
-func newResponse(success bool, message string, data any) dto.Response {
-	return dto.Response{
+func newResponse(success bool, message string, data any) modelv1.Response {
+	return modelv1.Response{
 		Success: success,
 		Message: message,
 		Data:    data,
@@ -25,8 +25,8 @@ func newResponse(success bool, message string, data any) dto.Response {
 }
 
 // newMeta is a helper function to create metadata for a paginated response
-func newMeta(total, limit, skip uint64) dto.Meta {
-	return dto.Meta{
+func newMeta(total, limit, skip uint64) modelv1.Meta {
+	return modelv1.Meta{
 		Total: total,
 		Limit: limit,
 		Skip:  skip,
@@ -34,8 +34,8 @@ func newMeta(total, limit, skip uint64) dto.Meta {
 }
 
 // newUserResponse is a helper function to create a response body for handling user data
-func newUserResponse(user *domainuser.User) dto.UserResponse {
-	return dto.UserResponse{
+func newUserResponse(user *domainuser.User) modelv1.UserResponse {
+	return modelv1.UserResponse{
 		ID:        user.ID,
 		Name:      user.Name,
 		Email:     user.Email,
@@ -45,8 +45,8 @@ func newUserResponse(user *domainuser.User) dto.UserResponse {
 }
 
 // newPaymentResponse is a helper function to create a response body for handling payment data
-func newPaymentResponse(payment *domainpayment.Payment) dto.PaymentResponse {
-	return dto.PaymentResponse{
+func newPaymentResponse(payment *domainpayment.Payment) modelv1.PaymentResponse {
+	return modelv1.PaymentResponse{
 		ID:   payment.ID,
 		Name: payment.Name,
 		Type: payment.Type,
@@ -55,16 +55,16 @@ func newPaymentResponse(payment *domainpayment.Payment) dto.PaymentResponse {
 }
 
 // newCategoryResponse is a helper function to create a response body for handling category data
-func newCategoryResponse(category *domaincategory.Category) dto.CategoryResponse {
-	return dto.CategoryResponse{
+func newCategoryResponse(category *domaincategory.Category) modelv1.CategoryResponse {
+	return modelv1.CategoryResponse{
 		ID:   category.ID,
 		Name: category.Name,
 	}
 }
 
 // newProductResponse is a helper function to create a response body for handling product data
-func newProductResponse(product *domainproduct.Product) dto.ProductResponse {
-	return dto.ProductResponse{
+func newProductResponse(product *domainproduct.Product) modelv1.ProductResponse {
+	return modelv1.ProductResponse{
 		ID:        product.ID,
 		SKU:       product.SKU.String(),
 		Name:      product.Name,
@@ -77,9 +77,16 @@ func newProductResponse(product *domainproduct.Product) dto.ProductResponse {
 	}
 }
 
+// newAuthResponse is a helper function to create a response body for handling authentication data
+func newAuthResponse(token string) modelv1.AuthResponse {
+	return modelv1.AuthResponse{
+		AccessToken: token,
+	}
+}
+
 // newOrderResponse is a helper function to create a response body for handling order data
-func newOrderResponse(order *domainorder.Order) dto.OrderResponse {
-	return dto.OrderResponse{
+func newOrderResponse(order *domainorder.Order) modelv1.OrderResponse {
+	return modelv1.OrderResponse{
 		ID:           order.ID,
 		UserID:       order.UserID,
 		PaymentID:    order.PaymentID,
@@ -96,11 +103,11 @@ func newOrderResponse(order *domainorder.Order) dto.OrderResponse {
 }
 
 // newOrderProductResponse is a helper function to create a response body for handling order product data
-func newOrderProductResponse(orderProduct []domainorder.OrderProduct) []dto.OrderProductResponse {
-	var orderProductResponses []dto.OrderProductResponse
+func newOrderProductResponse(orderProduct []domainorder.OrderProduct) []modelv1.OrderProductResponse {
+	var orderProductResponses []modelv1.OrderProductResponse
 
 	for _, orderProduct := range orderProduct {
-		orderProductResponses = append(orderProductResponses, dto.OrderProductResponse{
+		orderProductResponses = append(orderProductResponses, modelv1.OrderProductResponse{
 			ID:               orderProduct.ID,
 			OrderID:          orderProduct.OrderID,
 			ProductID:        orderProduct.ProductID,
@@ -182,8 +189,8 @@ func parseError(err error) []string {
 }
 
 // NewErrorResponse is a helper function to create an error response body
-func newErrorResponse(errMsgs []string) dto.ErrorResponse {
-	return dto.ErrorResponse{
+func newErrorResponse(errMsgs []string) modelv1.ErrorResponse {
+	return modelv1.ErrorResponse{
 		Success:  false,
 		Messages: errMsgs,
 	}

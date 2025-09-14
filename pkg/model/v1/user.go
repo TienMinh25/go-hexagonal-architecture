@@ -1,4 +1,4 @@
-package dto
+package modelv1
 
 import (
 	"time"

@@ -1,9 +1,9 @@
 package http
 
 import (
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	domaincategory "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/category"
 	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
+	modelv1 "github.com/TienMinh25/go-hexagonal-architecture/pkg/model/v1"
 	"github.com/gin-gonic/gin"
 )
 
@@ -26,18 +26,18 @@ func NewCategoryHandler(svc portin.CategoryService) *CategoryHandler {
 //	@Tags			Categories
 //	@Accept			json
 //	@Produce		json
-//	@Param			createCategoryRequest	body		dto.CreateCategoryRequest	true	"Create category request"
-//	@Success		200						{object}	dto.CategoryResponse		"Category created"
-//	@Failure		400						{object}	dto.ErrorResponse			"Validation error"
-//	@Failure		401						{object}	dto.ErrorResponse			"Unauthorized error"
-//	@Failure		403						{object}	dto.ErrorResponse			"Forbidden error"
-//	@Failure		404						{object}	dto.ErrorResponse			"Data not found error"
-//	@Failure		409						{object}	dto.ErrorResponse			"Data conflict error"
-//	@Failure		500						{object}	dto.ErrorResponse			"Internal server error"
+//	@Param			createCategoryRequest	body		modelv1.CreateCategoryRequest	true	"Create category request"
+//	@Success		200						{object}	modelv1.CategoryResponse		"Category created"
+//	@Failure		400						{object}	modelv1.ErrorResponse			"Validation error"
+//	@Failure		401						{object}	modelv1.ErrorResponse			"Unauthorized error"
+//	@Failure		403						{object}	modelv1.ErrorResponse			"Forbidden error"
+//	@Failure		404						{object}	modelv1.ErrorResponse			"Data not found error"
+//	@Failure		409						{object}	modelv1.ErrorResponse			"Data conflict error"
+//	@Failure		500						{object}	modelv1.ErrorResponse			"Internal server error"
 //	@Router			/categories [post]
 //	@Security		BearerAuth
 func (ch *CategoryHandler) CreateCategory(ctx *gin.Context) {
-	var req dto.CreateCategoryRequest
+	var req modelv1.CreateCategoryRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -65,15 +65,15 @@ func (ch *CategoryHandler) CreateCategory(ctx *gin.Context) {
 //	@Tags			Categories
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		uint64				true	"Category ID"
-//	@Success		200	{object}	dto.CategoryResponse	"Category retrieved"
-//	@Failure		400	{object}	dto.ErrorResponse		"Validation error"
-//	@Failure		404	{object}	dto.ErrorResponse		"Data not found error"
-//	@Failure		500	{object}	dto.ErrorResponse		"Internal server error"
+//	@Param			id	path		uint64						true	"Category ID"
+//	@Success		200	{object}	modelv1.CategoryResponse	"Category retrieved"
+//	@Failure		400	{object}	modelv1.ErrorResponse		"Validation error"
+//	@Failure		404	{object}	modelv1.ErrorResponse		"Data not found error"
+//	@Failure		500	{object}	modelv1.ErrorResponse		"Internal server error"
 //	@Router			/categories/{id} [get]
 //	@Security		BearerAuth
 func (ch *CategoryHandler) GetCategory(ctx *gin.Context) {
-	var req dto.GetCategoryRequest
+	var req modelv1.GetCategoryRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -97,16 +97,16 @@ func (ch *CategoryHandler) GetCategory(ctx *gin.Context) {
 //	@Tags			Categories
 //	@Accept			json
 //	@Produce		json
-//	@Param			skip	query		uint64			true	"Skip"
-//	@Param			limit	query		uint64			true	"Limit"
-//	@Success		200		{object}	dto.Meta			"Categories displayed"
-//	@Failure		400		{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		500		{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			skip	query		uint64					true	"Skip"
+//	@Param			limit	query		uint64					true	"Limit"
+//	@Success		200		{object}	modelv1.Meta			"Categories displayed"
+//	@Failure		400		{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		500		{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/categories [get]
 //	@Security		BearerAuth
 func (ch *CategoryHandler) ListCategories(ctx *gin.Context) {
-	var req dto.ListCategoriesRequest
-	var categoriesList []dto.CategoryResponse
+	var req modelv1.ListCategoriesRequest
+	var categoriesList []modelv1.CategoryResponse
 
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 		validationError(ctx, err)
@@ -137,19 +137,19 @@ func (ch *CategoryHandler) ListCategories(ctx *gin.Context) {
 //	@Tags			Categories
 //	@Accept			json
 //	@Produce		json
-//	@Param			id						path		uint64					true	"Category ID"
-//	@Param			updateCategoryRequest	body		dto.UpdateCategoryRequest	true	"Update category request"
-//	@Success		200						{object}	dto.CategoryResponse		"Category updated"
-//	@Failure		400						{object}	dto.ErrorResponse			"Validation error"
-//	@Failure		401						{object}	dto.ErrorResponse			"Unauthorized error"
-//	@Failure		403						{object}	dto.ErrorResponse			"Forbidden error"
-//	@Failure		404						{object}	dto.ErrorResponse			"Data not found error"
-//	@Failure		409						{object}	dto.ErrorResponse			"Data conflict error"
-//	@Failure		500						{object}	dto.ErrorResponse			"Internal server error"
+//	@Param			id						path		uint64							true	"Category ID"
+//	@Param			updateCategoryRequest	body		modelv1.UpdateCategoryRequest	true	"Update category request"
+//	@Success		200						{object}	modelv1.CategoryResponse		"Category updated"
+//	@Failure		400						{object}	modelv1.ErrorResponse			"Validation error"
+//	@Failure		401						{object}	modelv1.ErrorResponse			"Unauthorized error"
+//	@Failure		403						{object}	modelv1.ErrorResponse			"Forbidden error"
+//	@Failure		404						{object}	modelv1.ErrorResponse			"Data not found error"
+//	@Failure		409						{object}	modelv1.ErrorResponse			"Data conflict error"
+//	@Failure		500						{object}	modelv1.ErrorResponse			"Internal server error"
 //	@Router			/categories/{id} [put]
 //	@Security		BearerAuth
 func (ch *CategoryHandler) UpdateCategory(ctx *gin.Context) {
-	var req dto.UpdateCategoryRequest
+	var req modelv1.UpdateCategoryRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -185,17 +185,17 @@ func (ch *CategoryHandler) UpdateCategory(ctx *gin.Context) {
 //	@Tags			Categories
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		uint64			true	"Category ID"
-//	@Success		200	{object}	dto.Response		"Category deleted"
-//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
-//	@Failure		401	{object}	dto.ErrorResponse	"Unauthorized error"
-//	@Failure		403	{object}	dto.ErrorResponse	"Forbidden error"
-//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
-//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
+//	@Param			id	path		uint64					true	"Category ID"
+//	@Success		200	{object}	modelv1.Response		"Category deleted"
+//	@Failure		400	{object}	modelv1.ErrorResponse	"Validation error"
+//	@Failure		401	{object}	modelv1.ErrorResponse	"Unauthorized error"
+//	@Failure		403	{object}	modelv1.ErrorResponse	"Forbidden error"
+//	@Failure		404	{object}	modelv1.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	modelv1.ErrorResponse	"Internal server error"
 //	@Router			/categories/{id} [delete]
 //	@Security		BearerAuth
 func (ch *CategoryHandler) DeleteCategory(ctx *gin.Context) {
-	var req dto.DeleteCategoryRequest
+	var req modelv1.DeleteCategoryRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return

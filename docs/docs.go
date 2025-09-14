@@ -61,19 +61,19 @@ const docTemplate = `{
                     "200": {
                         "description": "Categories displayed",
                         "schema": {
-                            "$ref": "#/definitions/dto.Meta"
+                            "$ref": "#/definitions/modelv1.Meta"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -102,7 +102,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.CreateCategoryRequest"
+                            "$ref": "#/definitions/modelv1.CreateCategoryRequest"
                         }
                     }
                 ],
@@ -110,43 +110,43 @@ const docTemplate = `{
                     "200": {
                         "description": "Category created",
                         "schema": {
-                            "$ref": "#/definitions/dto.CategoryResponse"
+                            "$ref": "#/definitions/modelv1.CategoryResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Data conflict error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -183,25 +183,25 @@ const docTemplate = `{
                     "200": {
                         "description": "Category retrieved",
                         "schema": {
-                            "$ref": "#/definitions/dto.CategoryResponse"
+                            "$ref": "#/definitions/modelv1.CategoryResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -237,7 +237,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdateCategoryRequest"
+                            "$ref": "#/definitions/modelv1.UpdateCategoryRequest"
                         }
                     }
                 ],
@@ -245,43 +245,43 @@ const docTemplate = `{
                     "200": {
                         "description": "Category updated",
                         "schema": {
-                            "$ref": "#/definitions/dto.CategoryResponse"
+                            "$ref": "#/definitions/modelv1.CategoryResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Data conflict error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -316,37 +316,37 @@ const docTemplate = `{
                     "200": {
                         "description": "Category deleted",
                         "schema": {
-                            "$ref": "#/definitions/dto.Response"
+                            "$ref": "#/definitions/modelv1.Response"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -390,25 +390,25 @@ const docTemplate = `{
                     "200": {
                         "description": "Orders displayed",
                         "schema": {
-                            "$ref": "#/definitions/dto.Meta"
+                            "$ref": "#/definitions/modelv1.Meta"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -437,7 +437,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.CreateOrderRequest"
+                            "$ref": "#/definitions/modelv1.CreateOrderRequest"
                         }
                     }
                 ],
@@ -445,31 +445,31 @@ const docTemplate = `{
                     "200": {
                         "description": "Order created",
                         "schema": {
-                            "$ref": "#/definitions/dto.OrderResponse"
+                            "$ref": "#/definitions/modelv1.OrderResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Data conflict error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -506,25 +506,25 @@ const docTemplate = `{
                     "200": {
                         "description": "Order displayed",
                         "schema": {
-                            "$ref": "#/definitions/dto.OrderResponse"
+                            "$ref": "#/definitions/modelv1.OrderResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -568,19 +568,19 @@ const docTemplate = `{
                     "200": {
                         "description": "Payments displayed",
                         "schema": {
-                            "$ref": "#/definitions/dto.Meta"
+                            "$ref": "#/definitions/modelv1.Meta"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -609,7 +609,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.CreatePaymentRequest"
+                            "$ref": "#/definitions/modelv1.CreatePaymentRequest"
                         }
                     }
                 ],
@@ -617,43 +617,43 @@ const docTemplate = `{
                     "200": {
                         "description": "Payment created",
                         "schema": {
-                            "$ref": "#/definitions/dto.PaymentResponse"
+                            "$ref": "#/definitions/modelv1.PaymentResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Data conflict error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -690,25 +690,25 @@ const docTemplate = `{
                     "200": {
                         "description": "Payment retrieved",
                         "schema": {
-                            "$ref": "#/definitions/dto.PaymentResponse"
+                            "$ref": "#/definitions/modelv1.PaymentResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -744,7 +744,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdatePaymentRequest"
+                            "$ref": "#/definitions/modelv1.UpdatePaymentRequest"
                         }
                     }
                 ],
@@ -752,43 +752,43 @@ const docTemplate = `{
                     "200": {
                         "description": "Payment updated",
                         "schema": {
-                            "$ref": "#/definitions/dto.PaymentResponse"
+                            "$ref": "#/definitions/modelv1.PaymentResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Data conflict error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -823,37 +823,37 @@ const docTemplate = `{
                     "200": {
                         "description": "Payment deleted",
                         "schema": {
-                            "$ref": "#/definitions/dto.Response"
+                            "$ref": "#/definitions/modelv1.Response"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -909,19 +909,19 @@ const docTemplate = `{
                     "200": {
                         "description": "Products retrieved",
                         "schema": {
-                            "$ref": "#/definitions/dto.Meta"
+                            "$ref": "#/definitions/modelv1.Meta"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -950,7 +950,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.CreateProductRequest"
+                            "$ref": "#/definitions/modelv1.CreateProductRequest"
                         }
                     }
                 ],
@@ -958,43 +958,43 @@ const docTemplate = `{
                     "200": {
                         "description": "Product created",
                         "schema": {
-                            "$ref": "#/definitions/dto.ProductResponse"
+                            "$ref": "#/definitions/modelv1.ProductResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Data conflict error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -1031,25 +1031,25 @@ const docTemplate = `{
                     "200": {
                         "description": "Product retrieved",
                         "schema": {
-                            "$ref": "#/definitions/dto.ProductResponse"
+                            "$ref": "#/definitions/modelv1.ProductResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -1085,7 +1085,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdateProductRequest"
+                            "$ref": "#/definitions/modelv1.UpdateProductRequest"
                         }
                     }
                 ],
@@ -1093,43 +1093,43 @@ const docTemplate = `{
                     "200": {
                         "description": "Product updated",
                         "schema": {
-                            "$ref": "#/definitions/dto.ProductResponse"
+                            "$ref": "#/definitions/modelv1.ProductResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Data conflict error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -1164,37 +1164,37 @@ const docTemplate = `{
                     "200": {
                         "description": "Product deleted",
                         "schema": {
-                            "$ref": "#/definitions/dto.Response"
+                            "$ref": "#/definitions/modelv1.Response"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -1238,19 +1238,19 @@ const docTemplate = `{
                     "200": {
                         "description": "Users displayed",
                         "schema": {
-                            "$ref": "#/definitions/dto.Meta"
+                            "$ref": "#/definitions/modelv1.Meta"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -1274,7 +1274,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.RegisterRequest"
+                            "$ref": "#/definitions/modelv1.RegisterRequest"
                         }
                     }
                 ],
@@ -1282,37 +1282,37 @@ const docTemplate = `{
                     "200": {
                         "description": "User created",
                         "schema": {
-                            "$ref": "#/definitions/dto.UserResponse"
+                            "$ref": "#/definitions/modelv1.UserResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Data conflict error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -1338,7 +1338,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.LoginRequest"
+                            "$ref": "#/definitions/modelv1.LoginRequest"
                         }
                     }
                 ],
@@ -1346,25 +1346,25 @@ const docTemplate = `{
                     "200": {
                         "description": "Succesfully logged in",
                         "schema": {
-                            "$ref": "#/definitions/dto.AuthResponse"
+                            "$ref": "#/definitions/modelv1.AuthResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -1401,25 +1401,25 @@ const docTemplate = `{
                     "200": {
                         "description": "User displayed",
                         "schema": {
-                            "$ref": "#/definitions/dto.UserResponse"
+                            "$ref": "#/definitions/modelv1.UserResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -1455,7 +1455,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdateUserRequest"
+                            "$ref": "#/definitions/modelv1.UpdateUserRequest"
                         }
                     }
                 ],
@@ -1463,37 +1463,37 @@ const docTemplate = `{
                     "200": {
                         "description": "User updated",
                         "schema": {
-                            "$ref": "#/definitions/dto.UserResponse"
+                            "$ref": "#/definitions/modelv1.UserResponse"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -1528,37 +1528,37 @@ const docTemplate = `{
                     "200": {
                         "description": "User deleted",
                         "schema": {
-                            "$ref": "#/definitions/dto.Response"
+                            "$ref": "#/definitions/modelv1.Response"
                         }
                     },
                     "400": {
                         "description": "Validation error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Data not found error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/modelv1.ErrorResponse"
                         }
                     }
                 }
@@ -1590,7 +1590,7 @@ const docTemplate = `{
                 "Cashier"
             ]
         },
-        "dto.AuthResponse": {
+        "modelv1.AuthResponse": {
             "type": "object",
             "properties": {
                 "token": {
@@ -1599,7 +1599,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.CategoryResponse": {
+        "modelv1.CategoryResponse": {
             "type": "object",
             "properties": {
                 "id": {
@@ -1612,7 +1612,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.CreateCategoryRequest": {
+        "modelv1.CreateCategoryRequest": {
             "type": "object",
             "required": [
                 "name"
@@ -1624,7 +1624,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.CreateOrderRequest": {
+        "modelv1.CreateOrderRequest": {
             "type": "object",
             "required": [
                 "customer_name",
@@ -1644,7 +1644,7 @@ const docTemplate = `{
                 "products": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/dto.OrderProductRequest"
+                        "$ref": "#/definitions/modelv1.OrderProductRequest"
                     }
                 },
                 "total_paid": {
@@ -1653,7 +1653,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.CreatePaymentRequest": {
+        "modelv1.CreatePaymentRequest": {
             "type": "object",
             "required": [
                 "logo",
@@ -1679,7 +1679,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.CreateProductRequest": {
+        "modelv1.CreateProductRequest": {
             "type": "object",
             "required": [
                 "category_id",
@@ -1714,7 +1714,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.ErrorResponse": {
+        "modelv1.ErrorResponse": {
             "type": "object",
             "properties": {
                 "messages": {
@@ -1733,7 +1733,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.LoginRequest": {
+        "modelv1.LoginRequest": {
             "type": "object",
             "required": [
                 "email",
@@ -1751,7 +1751,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.Meta": {
+        "modelv1.Meta": {
             "type": "object",
             "properties": {
                 "limit": {
@@ -1768,7 +1768,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.OrderProductRequest": {
+        "modelv1.OrderProductRequest": {
             "type": "object",
             "required": [
                 "product_id",
@@ -1786,7 +1786,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.OrderProductResponse": {
+        "modelv1.OrderProductResponse": {
             "type": "object",
             "properties": {
                 "created_at": {
@@ -1806,7 +1806,7 @@ const docTemplate = `{
                     "example": 100000
                 },
                 "product": {
-                    "$ref": "#/definitions/dto.ProductResponse"
+                    "$ref": "#/definitions/modelv1.ProductResponse"
                 },
                 "product_id": {
                     "type": "integer",
@@ -1830,7 +1830,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.OrderResponse": {
+        "modelv1.OrderResponse": {
             "type": "object",
             "properties": {
                 "created_at": {
@@ -1846,7 +1846,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "payment_type": {
-                    "$ref": "#/definitions/dto.PaymentResponse"
+                    "$ref": "#/definitions/modelv1.PaymentResponse"
                 },
                 "payment_type_id": {
                     "type": "integer",
@@ -1855,7 +1855,7 @@ const docTemplate = `{
                 "products": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/dto.OrderProductResponse"
+                        "$ref": "#/definitions/modelv1.OrderProductResponse"
                     }
                 },
                 "receipt_id": {
@@ -1884,7 +1884,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.PaymentResponse": {
+        "modelv1.PaymentResponse": {
             "type": "object",
             "properties": {
                 "id": {
@@ -1909,11 +1909,11 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.ProductResponse": {
+        "modelv1.ProductResponse": {
             "type": "object",
             "properties": {
                 "category": {
-                    "$ref": "#/definitions/dto.CategoryResponse"
+                    "$ref": "#/definitions/modelv1.CategoryResponse"
                 },
                 "created_at": {
                     "type": "string",
@@ -1949,7 +1949,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.RegisterRequest": {
+        "modelv1.RegisterRequest": {
             "type": "object",
             "required": [
                 "email",
@@ -1972,7 +1972,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.Response": {
+        "modelv1.Response": {
             "type": "object",
             "properties": {
                 "data": {},
@@ -1986,7 +1986,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UpdateCategoryRequest": {
+        "modelv1.UpdateCategoryRequest": {
             "type": "object",
             "required": [
                 "name"
@@ -1998,7 +1998,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UpdatePaymentRequest": {
+        "modelv1.UpdatePaymentRequest": {
             "type": "object",
             "required": [
                 "logo",
@@ -2024,7 +2024,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UpdateProductRequest": {
+        "modelv1.UpdateProductRequest": {
             "type": "object",
             "required": [
                 "category_id",
@@ -2059,7 +2059,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UpdateUserRequest": {
+        "modelv1.UpdateUserRequest": {
             "type": "object",
             "required": [
                 "email",
@@ -2091,7 +2091,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UserResponse": {
+        "modelv1.UserResponse": {
             "type": "object",
             "properties": {
                 "created_at": {

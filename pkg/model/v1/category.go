@@ -1,4 +1,4 @@
-package dto
+package modelv1
 
 // CreateCategoryRequest represents a request body for creating a new category
 type CreateCategoryRequest struct {
