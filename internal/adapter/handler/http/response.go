@@ -3,8 +3,8 @@ package http
 import (
 	"errors"
 	"net/http"
-	"time"
 
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain"
 	domaincategory "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/category"
 	domainorder "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/order"
@@ -15,62 +15,27 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-// response represents a response body format
-type response struct {
-	Success bool   `json:"success" example:"true"`
-	Message string `json:"message" example:"Success"`
-	Data    any    `json:"data,omitempty"`
-}
-
 // newResponse is a helper function to create a response body
-func newResponse(success bool, message string, data any) response {
-	return response{
+func newResponse(success bool, message string, data any) dto.Response {
+	return dto.Response{
 		Success: success,
 		Message: message,
 		Data:    data,
 	}
 }
 
-// meta represents metadata for a paginated response
-type meta struct {
-	Total uint64 `json:"total" example:"100"`
-	Limit uint64 `json:"limit" example:"10"`
-	Skip  uint64 `json:"skip" example:"0"`
-}
-
 // newMeta is a helper function to create metadata for a paginated response
-func newMeta(total, limit, skip uint64) meta {
-	return meta{
+func newMeta(total, limit, skip uint64) dto.Meta {
+	return dto.Meta{
 		Total: total,
 		Limit: limit,
 		Skip:  skip,
 	}
 }
 
-// authResponse represents an authentication response body
-type authResponse struct {
-	AccessToken string `json:"token" example:"v2.local.Gdh5kiOTyyaQ3_bNykYDeYHO21Jg2..."`
-}
-
-// newAuthResponse is a helper function to create a response body for handling authentication data
-func newAuthResponse(token string) authResponse {
-	return authResponse{
-		AccessToken: token,
-	}
-}
-
-// userResponse represents a user response body
-type userResponse struct {
-	ID        uint64    `json:"id" example:"1"`
-	Name      string    `json:"name" example:"John Doe"`
-	Email     string    `json:"email" example:"test@example.com"`
-	CreatedAt time.Time `json:"created_at" example:"1970-01-01T00:00:00Z"`
-	UpdatedAt time.Time `json:"updated_at" example:"1970-01-01T00:00:00Z"`
-}
-
 // newUserResponse is a helper function to create a response body for handling user data
-func newUserResponse(user *domainuser.User) userResponse {
-	return userResponse{
+func newUserResponse(user *domainuser.User) dto.UserResponse {
+	return dto.UserResponse{
 		ID:        user.ID,
 		Name:      user.Name,
 		Email:     user.Email,
@@ -79,17 +44,9 @@ func newUserResponse(user *domainuser.User) userResponse {
 	}
 }
 
-// paymentResponse represents a payment response body
-type paymentResponse struct {
-	ID   uint64                    `json:"id" example:"1"`
-	Name string                    `json:"name" example:"Tunai"`
-	Type domainpayment.PaymentType `json:"type" example:"CASH"`
-	Logo string                    `json:"logo" example:"https://example.com/cash.png"`
-}
-
 // newPaymentResponse is a helper function to create a response body for handling payment data
-func newPaymentResponse(payment *domainpayment.Payment) paymentResponse {
-	return paymentResponse{
+func newPaymentResponse(payment *domainpayment.Payment) dto.PaymentResponse {
+	return dto.PaymentResponse{
 		ID:   payment.ID,
 		Name: payment.Name,
 		Type: payment.Type,
@@ -97,36 +54,17 @@ func newPaymentResponse(payment *domainpayment.Payment) paymentResponse {
 	}
 }
 
-// categoryResponse represents a category response body
-type categoryResponse struct {
-	ID   uint64 `json:"id" example:"1"`
-	Name string `json:"name" example:"Foods"`
-}
-
 // newCategoryResponse is a helper function to create a response body for handling category data
-func newCategoryResponse(category *domaincategory.Category) categoryResponse {
-	return categoryResponse{
+func newCategoryResponse(category *domaincategory.Category) dto.CategoryResponse {
+	return dto.CategoryResponse{
 		ID:   category.ID,
 		Name: category.Name,
 	}
 }
 
-// productResponse represents a product response body
-type productResponse struct {
-	ID        uint64           `json:"id" example:"1"`
-	SKU       string           `json:"sku" example:"9a4c25d3-9786-492c-b084-85cb75c1ee3e"`
-	Name      string           `json:"name" example:"Chiki Ball"`
-	Stock     int64            `json:"stock" example:"100"`
-	Price     float64          `json:"price" example:"5000"`
-	Image     string           `json:"image" example:"https://example.com/chiki-ball.png"`
-	Category  categoryResponse `json:"category"`
-	CreatedAt time.Time        `json:"created_at" example:"1970-01-01T00:00:00Z"`
-	UpdatedAt time.Time        `json:"updated_at" example:"1970-01-01T00:00:00Z"`
-}
-
 // newProductResponse is a helper function to create a response body for handling product data
-func newProductResponse(product *domainproduct.Product) productResponse {
-	return productResponse{
+func newProductResponse(product *domainproduct.Product) dto.ProductResponse {
+	return dto.ProductResponse{
 		ID:        product.ID,
 		SKU:       product.SKU.String(),
 		Name:      product.Name,
@@ -139,25 +77,9 @@ func newProductResponse(product *domainproduct.Product) productResponse {
 	}
 }
 
-// orderResponse represents an order response body
-type orderResponse struct {
-	ID           uint64                 `json:"id" example:"1"`
-	UserID       uint64                 `json:"user_id" example:"1"`
-	PaymentID    uint64                 `json:"payment_type_id" example:"1"`
-	CustomerName string                 `json:"customer_name" example:"John Doe"`
-	TotalPrice   float64                `json:"total_price" example:"100000"`
-	TotalPaid    float64                `json:"total_paid" example:"100000"`
-	TotalReturn  float64                `json:"total_return" example:"0"`
-	ReceiptCode  string                 `json:"receipt_id" example:"4979cf6e-d215-4ff8-9d0d-b3e99bcc7750"`
-	Products     []orderProductResponse `json:"products"`
-	PaymentType  paymentResponse        `json:"payment_type"`
-	CreatedAt    time.Time              `json:"created_at" example:"1970-01-01T00:00:00Z"`
-	UpdatedAt    time.Time              `json:"updated_at" example:"1970-01-01T00:00:00Z"`
-}
-
 // newOrderResponse is a helper function to create a response body for handling order data
-func newOrderResponse(order *domainorder.Order) orderResponse {
-	return orderResponse{
+func newOrderResponse(order *domainorder.Order) dto.OrderResponse {
+	return dto.OrderResponse{
 		ID:           order.ID,
 		UserID:       order.UserID,
 		PaymentID:    order.PaymentID,
@@ -173,26 +95,12 @@ func newOrderResponse(order *domainorder.Order) orderResponse {
 	}
 }
 
-// orderProductResponse represents an order product response body
-type orderProductResponse struct {
-	ID               uint64          `json:"id" example:"1"`
-	OrderID          uint64          `json:"order_id" example:"1"`
-	ProductID        uint64          `json:"product_id" example:"1"`
-	Quantity         int64           `json:"qty" example:"1"`
-	Price            float64         `json:"price" example:"100000"`
-	TotalNormalPrice float64         `json:"total_normal_price" example:"100000"`
-	TotalFinalPrice  float64         `json:"total_final_price" example:"100000"`
-	Product          productResponse `json:"product"`
-	CreatedAt        time.Time       `json:"created_at" example:"1970-01-01T00:00:00Z"`
-	UpdatedAt        time.Time       `json:"updated_at" example:"1970-01-01T00:00:00Z"`
-}
-
 // newOrderProductResponse is a helper function to create a response body for handling order product data
-func newOrderProductResponse(orderProduct []domainorder.OrderProduct) []orderProductResponse {
-	var orderProductResponses []orderProductResponse
+func newOrderProductResponse(orderProduct []domainorder.OrderProduct) []dto.OrderProductResponse {
+	var orderProductResponses []dto.OrderProductResponse
 
 	for _, orderProduct := range orderProduct {
-		orderProductResponses = append(orderProductResponses, orderProductResponse{
+		orderProductResponses = append(orderProductResponses, dto.OrderProductResponse{
 			ID:               orderProduct.ID,
 			OrderID:          orderProduct.OrderID,
 			ProductID:        orderProduct.ProductID,
@@ -273,15 +181,9 @@ func parseError(err error) []string {
 	return errMsgs
 }
 
-// errorResponse represents an error response body format
-type errorResponse struct {
-	Success  bool     `json:"success" example:"false"`
-	Messages []string `json:"messages" example:"Error message 1, Error message 2"`
-}
-
-// newErrorResponse is a helper function to create an error response body
-func newErrorResponse(errMsgs []string) errorResponse {
-	return errorResponse{
+// NewErrorResponse is a helper function to create an error response body
+func newErrorResponse(errMsgs []string) dto.ErrorResponse {
+	return dto.ErrorResponse{
 		Success:  false,
 		Messages: errMsgs,
 	}

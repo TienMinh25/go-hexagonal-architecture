@@ -3,6 +3,7 @@ package http
 import (
 	"strconv"
 
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	domainauth "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/auth"
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +21,7 @@ func getAuthPayload(ctx *gin.Context, key string) *domainauth.TokenPayload {
 }
 
 // toMap is a helper function to add meta and data to a map
-func toMap(m meta, data any, key string) map[string]any {
+func toMap(m dto.Meta, data any, key string) map[string]any {
 	return map[string]any{
 		"meta": m,
 		key:    data,

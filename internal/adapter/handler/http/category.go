@@ -1,6 +1,7 @@
 package http
 
 import (
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	domaincategory "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/category"
 	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
 	"github.com/gin-gonic/gin"
@@ -18,11 +19,6 @@ func NewCategoryHandler(svc portin.CategoryService) *CategoryHandler {
 	}
 }
 
-// createCategoryRequest represents a request body for creating a new category
-type createCategoryRequest struct {
-	Name string `json:"name" binding:"required" example:"Foods"`
-}
-
 // CreateCategory godoc
 //
 //	@Summary		Create a new category
@@ -30,18 +26,18 @@ type createCategoryRequest struct {
 //	@Tags			Categories
 //	@Accept			json
 //	@Produce		json
-//	@Param			createCategoryRequest	body		createCategoryRequest	true	"Create category request"
-//	@Success		200						{object}	categoryResponse		"Category created"
-//	@Failure		400						{object}	errorResponse			"Validation error"
-//	@Failure		401						{object}	errorResponse			"Unauthorized error"
-//	@Failure		403						{object}	errorResponse			"Forbidden error"
-//	@Failure		404						{object}	errorResponse			"Data not found error"
-//	@Failure		409						{object}	errorResponse			"Data conflict error"
-//	@Failure		500						{object}	errorResponse			"Internal server error"
+//	@Param			createCategoryRequest	body		dto.CreateCategoryRequest	true	"Create category request"
+//	@Success		200						{object}	dto.CategoryResponse		"Category created"
+//	@Failure		400						{object}	dto.ErrorResponse			"Validation error"
+//	@Failure		401						{object}	dto.ErrorResponse			"Unauthorized error"
+//	@Failure		403						{object}	dto.ErrorResponse			"Forbidden error"
+//	@Failure		404						{object}	dto.ErrorResponse			"Data not found error"
+//	@Failure		409						{object}	dto.ErrorResponse			"Data conflict error"
+//	@Failure		500						{object}	dto.ErrorResponse			"Internal server error"
 //	@Router			/categories [post]
 //	@Security		BearerAuth
 func (ch *CategoryHandler) CreateCategory(ctx *gin.Context) {
-	var req createCategoryRequest
+	var req dto.CreateCategoryRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -62,11 +58,6 @@ func (ch *CategoryHandler) CreateCategory(ctx *gin.Context) {
 	handleSuccess(ctx, rsp)
 }
 
-// getCategoryRequest represents a request body for retrieving a category
-type getCategoryRequest struct {
-	ID uint64 `uri:"id" binding:"required,min=1" example:"1"`
-}
-
 // GetCategory godoc
 //
 //	@Summary		Get a category
@@ -75,14 +66,14 @@ type getCategoryRequest struct {
 //	@Accept			json
 //	@Produce		json
 //	@Param			id	path		uint64				true	"Category ID"
-//	@Success		200	{object}	categoryResponse	"Category retrieved"
-//	@Failure		400	{object}	errorResponse		"Validation error"
-//	@Failure		404	{object}	errorResponse		"Data not found error"
-//	@Failure		500	{object}	errorResponse		"Internal server error"
+//	@Success		200	{object}	dto.CategoryResponse	"Category retrieved"
+//	@Failure		400	{object}	dto.ErrorResponse		"Validation error"
+//	@Failure		404	{object}	dto.ErrorResponse		"Data not found error"
+//	@Failure		500	{object}	dto.ErrorResponse		"Internal server error"
 //	@Router			/categories/{id} [get]
 //	@Security		BearerAuth
 func (ch *CategoryHandler) GetCategory(ctx *gin.Context) {
-	var req getCategoryRequest
+	var req dto.GetCategoryRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -99,12 +90,6 @@ func (ch *CategoryHandler) GetCategory(ctx *gin.Context) {
 	handleSuccess(ctx, rsp)
 }
 
-// listCategoriesRequest represents a request body for listing categories
-type listCategoriesRequest struct {
-	Skip  uint64 `form:"skip" binding:"required,min=0" example:"0"`
-	Limit uint64 `form:"limit" binding:"required,min=5" example:"5"`
-}
-
 // ListCategories godoc
 //
 //	@Summary		List categories
@@ -114,14 +99,14 @@ type listCategoriesRequest struct {
 //	@Produce		json
 //	@Param			skip	query		uint64			true	"Skip"
 //	@Param			limit	query		uint64			true	"Limit"
-//	@Success		200		{object}	meta			"Categories displayed"
-//	@Failure		400		{object}	errorResponse	"Validation error"
-//	@Failure		500		{object}	errorResponse	"Internal server error"
+//	@Success		200		{object}	dto.Meta			"Categories displayed"
+//	@Failure		400		{object}	dto.ErrorResponse	"Validation error"
+//	@Failure		500		{object}	dto.ErrorResponse	"Internal server error"
 //	@Router			/categories [get]
 //	@Security		BearerAuth
 func (ch *CategoryHandler) ListCategories(ctx *gin.Context) {
-	var req listCategoriesRequest
-	var categoriesList []categoryResponse
+	var req dto.ListCategoriesRequest
+	var categoriesList []dto.CategoryResponse
 
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 		validationError(ctx, err)
@@ -145,11 +130,6 @@ func (ch *CategoryHandler) ListCategories(ctx *gin.Context) {
 	handleSuccess(ctx, rsp)
 }
 
-// updateCategoryRequest represents a request body for updating a category
-type updateCategoryRequest struct {
-	Name string `json:"name" binding:"omitempty,required" example:"Beverages"`
-}
-
 // UpdateCategory godoc
 //
 //	@Summary		Update a category
@@ -158,18 +138,18 @@ type updateCategoryRequest struct {
 //	@Accept			json
 //	@Produce		json
 //	@Param			id						path		uint64					true	"Category ID"
-//	@Param			updateCategoryRequest	body		updateCategoryRequest	true	"Update category request"
-//	@Success		200						{object}	categoryResponse		"Category updated"
-//	@Failure		400						{object}	errorResponse			"Validation error"
-//	@Failure		401						{object}	errorResponse			"Unauthorized error"
-//	@Failure		403						{object}	errorResponse			"Forbidden error"
-//	@Failure		404						{object}	errorResponse			"Data not found error"
-//	@Failure		409						{object}	errorResponse			"Data conflict error"
-//	@Failure		500						{object}	errorResponse			"Internal server error"
+//	@Param			updateCategoryRequest	body		dto.UpdateCategoryRequest	true	"Update category request"
+//	@Success		200						{object}	dto.CategoryResponse		"Category updated"
+//	@Failure		400						{object}	dto.ErrorResponse			"Validation error"
+//	@Failure		401						{object}	dto.ErrorResponse			"Unauthorized error"
+//	@Failure		403						{object}	dto.ErrorResponse			"Forbidden error"
+//	@Failure		404						{object}	dto.ErrorResponse			"Data not found error"
+//	@Failure		409						{object}	dto.ErrorResponse			"Data conflict error"
+//	@Failure		500						{object}	dto.ErrorResponse			"Internal server error"
 //	@Router			/categories/{id} [put]
 //	@Security		BearerAuth
 func (ch *CategoryHandler) UpdateCategory(ctx *gin.Context) {
-	var req updateCategoryRequest
+	var req dto.UpdateCategoryRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -198,11 +178,6 @@ func (ch *CategoryHandler) UpdateCategory(ctx *gin.Context) {
 	handleSuccess(ctx, rsp)
 }
 
-// deleteCategoryRequest represents a request body for deleting a category
-type deleteCategoryRequest struct {
-	ID uint64 `uri:"id" binding:"required,min=1" example:"1"`
-}
-
 // DeleteCategory godoc
 //
 //	@Summary		Delete a category
@@ -211,16 +186,16 @@ type deleteCategoryRequest struct {
 //	@Accept			json
 //	@Produce		json
 //	@Param			id	path		uint64			true	"Category ID"
-//	@Success		200	{object}	response		"Category deleted"
-//	@Failure		400	{object}	errorResponse	"Validation error"
-//	@Failure		401	{object}	errorResponse	"Unauthorized error"
-//	@Failure		403	{object}	errorResponse	"Forbidden error"
-//	@Failure		404	{object}	errorResponse	"Data not found error"
-//	@Failure		500	{object}	errorResponse	"Internal server error"
+//	@Success		200	{object}	dto.Response		"Category deleted"
+//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
+//	@Failure		401	{object}	dto.ErrorResponse	"Unauthorized error"
+//	@Failure		403	{object}	dto.ErrorResponse	"Forbidden error"
+//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
 //	@Router			/categories/{id} [delete]
 //	@Security		BearerAuth
 func (ch *CategoryHandler) DeleteCategory(ctx *gin.Context) {
-	var req deleteCategoryRequest
+	var req dto.DeleteCategoryRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return

@@ -18,13 +18,13 @@ definitions:
     x-enum-varnames:
     - Admin
     - Cashier
-  http.authResponse:
+  dto.AuthResponse:
     properties:
       token:
         example: v2.local.Gdh5kiOTyyaQ3_bNykYDeYHO21Jg2...
         type: string
     type: object
-  http.categoryResponse:
+  dto.CategoryResponse:
     properties:
       id:
         example: 1
@@ -33,7 +33,7 @@ definitions:
         example: Foods
         type: string
     type: object
-  http.createCategoryRequest:
+  dto.CreateCategoryRequest:
     properties:
       name:
         example: Foods
@@ -41,7 +41,7 @@ definitions:
     required:
     - name
     type: object
-  http.createOrderRequest:
+  dto.CreateOrderRequest:
     properties:
       customer_name:
         example: John Doe
@@ -51,7 +51,7 @@ definitions:
         type: integer
       products:
         items:
-          $ref: '#/definitions/http.orderProductRequest'
+          $ref: '#/definitions/dto.OrderProductRequest'
         type: array
       total_paid:
         example: 100000
@@ -62,7 +62,7 @@ definitions:
     - products
     - total_paid
     type: object
-  http.createPaymentRequest:
+  dto.CreatePaymentRequest:
     properties:
       logo:
         example: https://example.com/cash.png
@@ -79,7 +79,7 @@ definitions:
     - name
     - type
     type: object
-  http.createProductRequest:
+  dto.CreateProductRequest:
     properties:
       category_id:
         example: 1
@@ -106,7 +106,7 @@ definitions:
     - price
     - stock
     type: object
-  http.errorResponse:
+  dto.ErrorResponse:
     properties:
       messages:
         example:
@@ -119,7 +119,7 @@ definitions:
         example: false
         type: boolean
     type: object
-  http.loginRequest:
+  dto.LoginRequest:
     properties:
       email:
         example: test@example.com
@@ -132,7 +132,7 @@ definitions:
     - email
     - password
     type: object
-  http.meta:
+  dto.Meta:
     properties:
       limit:
         example: 10
@@ -144,7 +144,7 @@ definitions:
         example: 100
         type: integer
     type: object
-  http.orderProductRequest:
+  dto.OrderProductRequest:
     properties:
       product_id:
         example: 1
@@ -157,7 +157,7 @@ definitions:
     - product_id
     - qty
     type: object
-  http.orderProductResponse:
+  dto.OrderProductResponse:
     properties:
       created_at:
         example: "1970-01-01T00:00:00Z"
@@ -172,7 +172,7 @@ definitions:
         example: 100000
         type: number
       product:
-        $ref: '#/definitions/http.productResponse'
+        $ref: '#/definitions/dto.ProductResponse'
       product_id:
         example: 1
         type: integer
@@ -189,7 +189,7 @@ definitions:
         example: "1970-01-01T00:00:00Z"
         type: string
     type: object
-  http.orderResponse:
+  dto.OrderResponse:
     properties:
       created_at:
         example: "1970-01-01T00:00:00Z"
@@ -201,13 +201,13 @@ definitions:
         example: 1
         type: integer
       payment_type:
-        $ref: '#/definitions/http.paymentResponse'
+        $ref: '#/definitions/dto.PaymentResponse'
       payment_type_id:
         example: 1
         type: integer
       products:
         items:
-          $ref: '#/definitions/http.orderProductResponse'
+          $ref: '#/definitions/dto.OrderProductResponse'
         type: array
       receipt_id:
         example: 4979cf6e-d215-4ff8-9d0d-b3e99bcc7750
@@ -228,7 +228,7 @@ definitions:
         example: 1
         type: integer
     type: object
-  http.paymentResponse:
+  dto.PaymentResponse:
     properties:
       id:
         example: 1
@@ -244,10 +244,10 @@ definitions:
         - $ref: '#/definitions/domainpayment.PaymentType'
         example: CASH
     type: object
-  http.productResponse:
+  dto.ProductResponse:
     properties:
       category:
-        $ref: '#/definitions/http.categoryResponse'
+        $ref: '#/definitions/dto.CategoryResponse'
       created_at:
         example: "1970-01-01T00:00:00Z"
         type: string
@@ -273,7 +273,7 @@ definitions:
         example: "1970-01-01T00:00:00Z"
         type: string
     type: object
-  http.registerRequest:
+  dto.RegisterRequest:
     properties:
       email:
         example: test@example.com
@@ -290,7 +290,7 @@ definitions:
     - name
     - password
     type: object
-  http.response:
+  dto.Response:
     properties:
       data: {}
       message:
@@ -300,7 +300,7 @@ definitions:
         example: true
         type: boolean
     type: object
-  http.updateCategoryRequest:
+  dto.UpdateCategoryRequest:
     properties:
       name:
         example: Beverages
@@ -308,7 +308,7 @@ definitions:
     required:
     - name
     type: object
-  http.updatePaymentRequest:
+  dto.UpdatePaymentRequest:
     properties:
       logo:
         example: https://example.com/gopay.png
@@ -325,7 +325,7 @@ definitions:
     - name
     - type
     type: object
-  http.updateProductRequest:
+  dto.UpdateProductRequest:
     properties:
       category_id:
         example: 1
@@ -352,7 +352,7 @@ definitions:
     - price
     - stock
     type: object
-  http.updateUserRequest:
+  dto.UpdateUserRequest:
     properties:
       email:
         example: test@example.com
@@ -374,7 +374,7 @@ definitions:
     - password
     - role
     type: object
-  http.userResponse:
+  dto.UserResponse:
     properties:
       created_at:
         example: "1970-01-01T00:00:00Z"
@@ -428,15 +428,15 @@ paths:
         "200":
           description: Categories displayed
           schema:
-            $ref: '#/definitions/http.meta'
+            $ref: '#/definitions/dto.Meta'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: List categories
@@ -452,38 +452,38 @@ paths:
         name: createCategoryRequest
         required: true
         schema:
-          $ref: '#/definitions/http.createCategoryRequest'
+          $ref: '#/definitions/dto.CreateCategoryRequest'
       produces:
       - application/json
       responses:
         "200":
           description: Category created
           schema:
-            $ref: '#/definitions/http.categoryResponse'
+            $ref: '#/definitions/dto.CategoryResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "409":
           description: Data conflict error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Create a new category
@@ -506,27 +506,27 @@ paths:
         "200":
           description: Category deleted
           schema:
-            $ref: '#/definitions/http.response'
+            $ref: '#/definitions/dto.Response'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Delete a category
@@ -548,19 +548,19 @@ paths:
         "200":
           description: Category retrieved
           schema:
-            $ref: '#/definitions/http.categoryResponse'
+            $ref: '#/definitions/dto.CategoryResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Get a category
@@ -581,38 +581,38 @@ paths:
         name: updateCategoryRequest
         required: true
         schema:
-          $ref: '#/definitions/http.updateCategoryRequest'
+          $ref: '#/definitions/dto.UpdateCategoryRequest'
       produces:
       - application/json
       responses:
         "200":
           description: Category updated
           schema:
-            $ref: '#/definitions/http.categoryResponse'
+            $ref: '#/definitions/dto.CategoryResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "409":
           description: Data conflict error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Update a category
@@ -640,19 +640,19 @@ paths:
         "200":
           description: Orders displayed
           schema:
-            $ref: '#/definitions/http.meta'
+            $ref: '#/definitions/dto.Meta'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: List orders
@@ -668,30 +668,30 @@ paths:
         name: createOrderRequest
         required: true
         schema:
-          $ref: '#/definitions/http.createOrderRequest'
+          $ref: '#/definitions/dto.CreateOrderRequest'
       produces:
       - application/json
       responses:
         "200":
           description: Order created
           schema:
-            $ref: '#/definitions/http.orderResponse'
+            $ref: '#/definitions/dto.OrderResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "409":
           description: Data conflict error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Create a new order
@@ -714,19 +714,19 @@ paths:
         "200":
           description: Order displayed
           schema:
-            $ref: '#/definitions/http.orderResponse'
+            $ref: '#/definitions/dto.OrderResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Get an order
@@ -754,15 +754,15 @@ paths:
         "200":
           description: Payments displayed
           schema:
-            $ref: '#/definitions/http.meta'
+            $ref: '#/definitions/dto.Meta'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: List payments
@@ -778,38 +778,38 @@ paths:
         name: createPaymentRequest
         required: true
         schema:
-          $ref: '#/definitions/http.createPaymentRequest'
+          $ref: '#/definitions/dto.CreatePaymentRequest'
       produces:
       - application/json
       responses:
         "200":
           description: Payment created
           schema:
-            $ref: '#/definitions/http.paymentResponse'
+            $ref: '#/definitions/dto.PaymentResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "409":
           description: Data conflict error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Create a new payment
@@ -832,27 +832,27 @@ paths:
         "200":
           description: Payment deleted
           schema:
-            $ref: '#/definitions/http.response'
+            $ref: '#/definitions/dto.Response'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Delete a payment
@@ -874,19 +874,19 @@ paths:
         "200":
           description: Payment retrieved
           schema:
-            $ref: '#/definitions/http.paymentResponse'
+            $ref: '#/definitions/dto.PaymentResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Get a payment
@@ -907,38 +907,38 @@ paths:
         name: updatePaymentRequest
         required: true
         schema:
-          $ref: '#/definitions/http.updatePaymentRequest'
+          $ref: '#/definitions/dto.UpdatePaymentRequest'
       produces:
       - application/json
       responses:
         "200":
           description: Payment updated
           schema:
-            $ref: '#/definitions/http.paymentResponse'
+            $ref: '#/definitions/dto.PaymentResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "409":
           description: Data conflict error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Update a payment
@@ -974,15 +974,15 @@ paths:
         "200":
           description: Products retrieved
           schema:
-            $ref: '#/definitions/http.meta'
+            $ref: '#/definitions/dto.Meta'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: List products
@@ -998,38 +998,38 @@ paths:
         name: createProductRequest
         required: true
         schema:
-          $ref: '#/definitions/http.createProductRequest'
+          $ref: '#/definitions/dto.CreateProductRequest'
       produces:
       - application/json
       responses:
         "200":
           description: Product created
           schema:
-            $ref: '#/definitions/http.productResponse'
+            $ref: '#/definitions/dto.ProductResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "409":
           description: Data conflict error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Create a new product
@@ -1052,27 +1052,27 @@ paths:
         "200":
           description: Product deleted
           schema:
-            $ref: '#/definitions/http.response'
+            $ref: '#/definitions/dto.Response'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Delete a product
@@ -1094,19 +1094,19 @@ paths:
         "200":
           description: Product retrieved
           schema:
-            $ref: '#/definitions/http.productResponse'
+            $ref: '#/definitions/dto.ProductResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Get a product
@@ -1127,38 +1127,38 @@ paths:
         name: updateProductRequest
         required: true
         schema:
-          $ref: '#/definitions/http.updateProductRequest'
+          $ref: '#/definitions/dto.UpdateProductRequest'
       produces:
       - application/json
       responses:
         "200":
           description: Product updated
           schema:
-            $ref: '#/definitions/http.productResponse'
+            $ref: '#/definitions/dto.ProductResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "409":
           description: Data conflict error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Update a product
@@ -1186,15 +1186,15 @@ paths:
         "200":
           description: Users displayed
           schema:
-            $ref: '#/definitions/http.meta'
+            $ref: '#/definitions/dto.Meta'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: List users
@@ -1210,34 +1210,34 @@ paths:
         name: registerRequest
         required: true
         schema:
-          $ref: '#/definitions/http.registerRequest'
+          $ref: '#/definitions/dto.RegisterRequest'
       produces:
       - application/json
       responses:
         "200":
           description: User created
           schema:
-            $ref: '#/definitions/http.userResponse'
+            $ref: '#/definitions/dto.UserResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "409":
           description: Data conflict error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       summary: Register a new user
       tags:
       - Users
@@ -1258,27 +1258,27 @@ paths:
         "200":
           description: User deleted
           schema:
-            $ref: '#/definitions/http.response'
+            $ref: '#/definitions/dto.Response'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Delete a user
@@ -1300,19 +1300,19 @@ paths:
         "200":
           description: User displayed
           schema:
-            $ref: '#/definitions/http.userResponse'
+            $ref: '#/definitions/dto.UserResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Get a user
@@ -1333,34 +1333,34 @@ paths:
         name: updateUserRequest
         required: true
         schema:
-          $ref: '#/definitions/http.updateUserRequest'
+          $ref: '#/definitions/dto.UpdateUserRequest'
       produces:
       - application/json
       responses:
         "200":
           description: User updated
           schema:
-            $ref: '#/definitions/http.userResponse'
+            $ref: '#/definitions/dto.UserResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "403":
           description: Forbidden error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "404":
           description: Data not found error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Update a user
@@ -1378,26 +1378,26 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/http.loginRequest'
+          $ref: '#/definitions/dto.LoginRequest'
       produces:
       - application/json
       responses:
         "200":
           description: Succesfully logged in
           schema:
-            $ref: '#/definitions/http.authResponse'
+            $ref: '#/definitions/dto.AuthResponse'
         "400":
           description: Validation error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "401":
           description: Unauthorized error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
         "500":
           description: Internal server error
           schema:
-            $ref: '#/definitions/http.errorResponse'
+            $ref: '#/definitions/dto.ErrorResponse'
       summary: Login and get an access token
       tags:
       - Users

@@ -1,6 +1,7 @@
 package http
 
 import (
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	domainproduct "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/product"
 	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
 	"github.com/gin-gonic/gin"
@@ -18,15 +19,6 @@ func NewProductHandler(svc portin.ProductService) *ProductHandler {
 	}
 }
 
-// createProductRequest represents a request body for creating a new product
-type createProductRequest struct {
-	CategoryID uint64  `json:"category_id" binding:"required,min=1" example:"1"`
-	Name       string  `json:"name" binding:"required" example:"Chiki Ball"`
-	Image      string  `json:"image" binding:"required" example:"https://example.com/chiki-ball.png"`
-	Price      float64 `json:"price" binding:"required,min=0" example:"5000"`
-	Stock      int64   `json:"stock" binding:"required,min=0" example:"100"`
-}
-
 // CreateProduct godoc
 //
 //	@Summary		Create a new product
@@ -34,18 +26,18 @@ type createProductRequest struct {
 //	@Tags			Products
 //	@Accept			json
 //	@Produce		json
-//	@Param			createProductRequest	body		createProductRequest	true	"Create product request"
-//	@Success		200						{object}	productResponse			"Product created"
-//	@Failure		400						{object}	errorResponse			"Validation error"
-//	@Failure		401						{object}	errorResponse			"Unauthorized error"
-//	@Failure		403						{object}	errorResponse			"Forbidden error"
-//	@Failure		404						{object}	errorResponse			"Data not found error"
-//	@Failure		409						{object}	errorResponse			"Data conflict error"
-//	@Failure		500						{object}	errorResponse			"Internal server error"
+//	@Param			createProductRequest	body		dto.CreateProductRequest	true	"Create product request"
+//	@Success		200						{object}	dto.ProductResponse			"Product created"
+//	@Failure		400						{object}	dto.ErrorResponse			"Validation error"
+//	@Failure		401						{object}	dto.ErrorResponse			"Unauthorized error"
+//	@Failure		403						{object}	dto.ErrorResponse			"Forbidden error"
+//	@Failure		404						{object}	dto.ErrorResponse			"Data not found error"
+//	@Failure		409						{object}	dto.ErrorResponse			"Data conflict error"
+//	@Failure		500						{object}	dto.ErrorResponse			"Internal server error"
 //	@Router			/products [post]
 //	@Security		BearerAuth
 func (ph *ProductHandler) CreateProduct(ctx *gin.Context) {
-	var req createProductRequest
+	var req dto.CreateProductRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -70,11 +62,6 @@ func (ph *ProductHandler) CreateProduct(ctx *gin.Context) {
 	handleSuccess(ctx, rsp)
 }
 
-// getProductRequest represents a request body for retrieving a product
-type getProductRequest struct {
-	ID uint64 `uri:"id" binding:"required,min=1" example:"1"`
-}
-
 // GetProduct godoc
 //
 //	@Summary		Get a product
@@ -83,14 +70,14 @@ type getProductRequest struct {
 //	@Accept			json
 //	@Produce		json
 //	@Param			id	path		uint64			true	"Product ID"
-//	@Success		200	{object}	productResponse	"Product retrieved"
-//	@Failure		400	{object}	errorResponse	"Validation error"
-//	@Failure		404	{object}	errorResponse	"Data not found error"
-//	@Failure		500	{object}	errorResponse	"Internal server error"
+//	@Success		200	{object}	dto.ProductResponse	"Product retrieved"
+//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
+//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
 //	@Router			/products/{id} [get]
 //	@Security		BearerAuth
 func (ph *ProductHandler) GetProduct(ctx *gin.Context) {
-	var req getProductRequest
+	var req dto.GetProductRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -107,14 +94,6 @@ func (ph *ProductHandler) GetProduct(ctx *gin.Context) {
 	handleSuccess(ctx, rsp)
 }
 
-// listProductsRequest represents a request body for listing products
-type listProductsRequest struct {
-	CategoryID uint64 `form:"category_id" binding:"omitempty,min=1" example:"1"`
-	Query      string `form:"q" binding:"omitempty" example:"Chiki"`
-	Skip       uint64 `form:"skip" binding:"required,min=0" example:"0"`
-	Limit      uint64 `form:"limit" binding:"required,min=5" example:"5"`
-}
-
 // ListProducts godoc
 //
 //	@Summary		List products
@@ -126,14 +105,14 @@ type listProductsRequest struct {
 //	@Param			q			query		string			false	"Query"
 //	@Param			skip		query		uint64			true	"Skip"
 //	@Param			limit		query		uint64			true	"Limit"
-//	@Success		200			{object}	meta			"Products retrieved"
-//	@Failure		400			{object}	errorResponse	"Validation error"
-//	@Failure		500			{object}	errorResponse	"Internal server error"
+//	@Success		200			{object}	dto.Meta			"Products retrieved"
+//	@Failure		400			{object}	dto.ErrorResponse	"Validation error"
+//	@Failure		500			{object}	dto.ErrorResponse	"Internal server error"
 //	@Router			/products [get]
 //	@Security		BearerAuth
 func (ph *ProductHandler) ListProducts(ctx *gin.Context) {
-	var req listProductsRequest
-	var productsList []productResponse
+	var req dto.ListProductsRequest
+	var productsList []dto.ProductResponse
 
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 		validationError(ctx, err)
@@ -157,15 +136,6 @@ func (ph *ProductHandler) ListProducts(ctx *gin.Context) {
 	handleSuccess(ctx, rsp)
 }
 
-// updateProductRequest represents a request body for updating a product
-type updateProductRequest struct {
-	CategoryID uint64  `json:"category_id" binding:"omitempty,required,min=1" example:"1"`
-	Name       string  `json:"name" binding:"omitempty,required" example:"Nutrisari Jeruk"`
-	Image      string  `json:"image" binding:"omitempty,required" example:"https://example.com/nutrisari-jeruk.png"`
-	Price      float64 `json:"price" binding:"omitempty,required,min=0" example:"2000"`
-	Stock      int64   `json:"stock" binding:"omitempty,required,min=0" example:"200"`
-}
-
 // UpdateProduct godoc
 //
 //	@Summary		Update a product
@@ -174,18 +144,18 @@ type updateProductRequest struct {
 //	@Accept			json
 //	@Produce		json
 //	@Param			id						path		uint64					true	"Product ID"
-//	@Param			updateProductRequest	body		updateProductRequest	true	"Update product request"
-//	@Success		200						{object}	productResponse			"Product updated"
-//	@Failure		400						{object}	errorResponse			"Validation error"
-//	@Failure		401						{object}	errorResponse			"Unauthorized error"
-//	@Failure		403						{object}	errorResponse			"Forbidden error"
-//	@Failure		404						{object}	errorResponse			"Data not found error"
-//	@Failure		409						{object}	errorResponse			"Data conflict error"
-//	@Failure		500						{object}	errorResponse			"Internal server error"
+//	@Param			updateProductRequest	body		dto.UpdateProductRequest	true	"Update product request"
+//	@Success		200						{object}	dto.ProductResponse			"Product updated"
+//	@Failure		400						{object}	dto.ErrorResponse			"Validation error"
+//	@Failure		401						{object}	dto.ErrorResponse			"Unauthorized error"
+//	@Failure		403						{object}	dto.ErrorResponse			"Forbidden error"
+//	@Failure		404						{object}	dto.ErrorResponse			"Data not found error"
+//	@Failure		409						{object}	dto.ErrorResponse			"Data conflict error"
+//	@Failure		500						{object}	dto.ErrorResponse			"Internal server error"
 //	@Router			/products/{id} [put]
 //	@Security		BearerAuth
 func (ph *ProductHandler) UpdateProduct(ctx *gin.Context) {
-	var req updateProductRequest
+	var req dto.UpdateProductRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -218,11 +188,6 @@ func (ph *ProductHandler) UpdateProduct(ctx *gin.Context) {
 	handleSuccess(ctx, rsp)
 }
 
-// deleteProductRequest represents a request body for deleting a product
-type deleteProductRequest struct {
-	ID uint64 `uri:"id" binding:"required,min=1" example:"1"`
-}
-
 // DeleteProduct godoc
 //
 //	@Summary		Delete a product
@@ -231,16 +196,16 @@ type deleteProductRequest struct {
 //	@Accept			json
 //	@Produce		json
 //	@Param			id	path		uint64			true	"Product ID"
-//	@Success		200	{object}	response		"Product deleted"
-//	@Failure		400	{object}	errorResponse	"Validation error"
-//	@Failure		401	{object}	errorResponse	"Unauthorized error"
-//	@Failure		403	{object}	errorResponse	"Forbidden error"
-//	@Failure		404	{object}	errorResponse	"Data not found error"
-//	@Failure		500	{object}	errorResponse	"Internal server error"
+//	@Success		200	{object}	dto.Response		"Product deleted"
+//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
+//	@Failure		401	{object}	dto.ErrorResponse	"Unauthorized error"
+//	@Failure		403	{object}	dto.ErrorResponse	"Forbidden error"
+//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
 //	@Router			/products/{id} [delete]
 //	@Security		BearerAuth
 func (ph *ProductHandler) DeleteProduct(ctx *gin.Context) {
-	var req deleteProductRequest
+	var req dto.DeleteProductRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return

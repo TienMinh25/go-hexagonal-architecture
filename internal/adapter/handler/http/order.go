@@ -1,6 +1,7 @@
 package http
 
 import (
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	domainorder "github.com/TienMinh25/go-hexagonal-architecture/internal/application/domain/order"
 	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
 	"github.com/gin-gonic/gin"
@@ -18,20 +19,6 @@ func NewOrderHandler(svc portin.OrderService) *OrderHandler {
 	}
 }
 
-// orderProductRequest represents an order product request body
-type orderProductRequest struct {
-	ProductID uint64 `json:"product_id" binding:"required,min=1" example:"1"`
-	Quantity  int64  `json:"qty" binding:"required,number" example:"1"`
-}
-
-// createOrderRequest represents a request body for creating a new order
-type createOrderRequest struct {
-	PaymentID    uint64                `json:"payment_id" binding:"required" example:"1"`
-	CustomerName string                `json:"customer_name" binding:"required" example:"John Doe"`
-	TotalPaid    int64                 `json:"total_paid" binding:"required" example:"100000"`
-	Products     []orderProductRequest `json:"products" binding:"required"`
-}
-
 // CreateOrder godoc
 //
 //	@Summary		Create a new order
@@ -39,16 +26,16 @@ type createOrderRequest struct {
 //	@Tags			Orders
 //	@Accept			json
 //	@Produce		json
-//	@Param			createOrderRequest	body		createOrderRequest	true	"Create order request"
-//	@Success		200					{object}	orderResponse		"Order created"
-//	@Failure		400					{object}	errorResponse		"Validation error"
-//	@Failure		404					{object}	errorResponse		"Data not found error"
-//	@Failure		409					{object}	errorResponse		"Data conflict error"
-//	@Failure		500					{object}	errorResponse		"Internal server error"
+//	@Param			createOrderRequest	body		dto.CreateOrderRequest	true	"Create order request"
+//	@Success		200					{object}	dto.OrderResponse		"Order created"
+//	@Failure		400					{object}	dto.ErrorResponse		"Validation error"
+//	@Failure		404					{object}	dto.ErrorResponse		"Data not found error"
+//	@Failure		409					{object}	dto.ErrorResponse		"Data conflict error"
+//	@Failure		500					{object}	dto.ErrorResponse		"Internal server error"
 //	@Router			/orders [post]
 //	@Security		BearerAuth
 func (oh *OrderHandler) CreateOrder(ctx *gin.Context) {
-	var req createOrderRequest
+	var req dto.CreateOrderRequest
 	var products []domainorder.OrderProduct
 
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -84,11 +71,6 @@ func (oh *OrderHandler) CreateOrder(ctx *gin.Context) {
 	handleSuccess(ctx, rsp)
 }
 
-// getOrderRequest represents a request body for retrieving an order
-type getOrderRequest struct {
-	ID uint64 `uri:"id" binding:"required,min=1" example:"1"`
-}
-
 // GetOrder godoc
 //
 //	@Summary		Get an order
@@ -97,14 +79,14 @@ type getOrderRequest struct {
 //	@Accept			json
 //	@Produce		json
 //	@Param			id	path		uint64			true	"Order ID"
-//	@Success		200	{object}	orderResponse	"Order displayed"
-//	@Failure		400	{object}	errorResponse	"Validation error"
-//	@Failure		404	{object}	errorResponse	"Data not found error"
-//	@Failure		500	{object}	errorResponse	"Internal server error"
+//	@Success		200	{object}	dto.OrderResponse	"Order displayed"
+//	@Failure		400	{object}	dto.ErrorResponse	"Validation error"
+//	@Failure		404	{object}	dto.ErrorResponse	"Data not found error"
+//	@Failure		500	{object}	dto.ErrorResponse	"Internal server error"
 //	@Router			/orders/{id} [get]
 //	@Security		BearerAuth
 func (oh *OrderHandler) GetOrder(ctx *gin.Context) {
-	var req getOrderRequest
+	var req dto.GetOrderRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		validationError(ctx, err)
 		return
@@ -121,12 +103,6 @@ func (oh *OrderHandler) GetOrder(ctx *gin.Context) {
 	handleSuccess(ctx, rsp)
 }
 
-// listOrdersRequest represents a request body for listing orders
-type listOrdersRequest struct {
-	Skip  uint64 `form:"skip" binding:"required,min=0" example:"0"`
-	Limit uint64 `form:"limit" binding:"required,min=5" example:"5"`
-}
-
 // ListOrders godoc
 //
 //	@Summary		List orders
@@ -136,15 +112,15 @@ type listOrdersRequest struct {
 //	@Produce		json
 //	@Param			skip	query		uint64			true	"Skip records"
 //	@Param			limit	query		uint64			true	"Limit records"
-//	@Success		200		{object}	meta			"Orders displayed"
-//	@Failure		400		{object}	errorResponse	"Validation error"
-//	@Failure		401		{object}	errorResponse	"Unauthorized error"
-//	@Failure		500		{object}	errorResponse	"Internal server error"
+//	@Success		200		{object}	dto.Meta			"Orders displayed"
+//	@Failure		400		{object}	dto.ErrorResponse	"Validation error"
+//	@Failure		401		{object}	dto.ErrorResponse	"Unauthorized error"
+//	@Failure		500		{object}	dto.ErrorResponse	"Internal server error"
 //	@Router			/orders [get]
 //	@Security		BearerAuth
 func (oh *OrderHandler) ListOrders(ctx *gin.Context) {
-	var req listOrdersRequest
-	var ordersList []orderResponse
+	var req dto.ListOrdersRequest
+	var ordersList []dto.OrderResponse
 
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 		validationError(ctx, err)

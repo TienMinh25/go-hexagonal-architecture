@@ -1,6 +1,7 @@
 package http
 
 import (
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http/dto"
 	portin "github.com/TienMinh25/go-hexagonal-architecture/internal/application/port/in"
 	"github.com/gin-gonic/gin"
 )
@@ -17,12 +18,6 @@ func NewAuthHandler(svc portin.AuthService) *AuthHandler {
 	}
 }
 
-// loginRequest represents the request body for logging in a user
-type loginRequest struct {
-	Email    string `json:"email" binding:"required,email" example:"test@example.com"`
-	Password string `json:"password" binding:"required,min=8" example:"12345678" minLength:"8"`
-}
-
 // Login godoc
 //
 //	@Summary		Login and get an access token
@@ -30,27 +25,27 @@ type loginRequest struct {
 //	@Tags			Users
 //	@Accept			json
 //	@Produce		json
-//	@Param			request	body		loginRequest	true	"Login request body"
-//	@Success		200		{object}	authResponse	"Succesfully logged in"
-//	@Failure		400		{object}	errorResponse	"Validation error"
-//	@Failure		401		{object}	errorResponse	"Unauthorized error"
-//	@Failure		500		{object}	errorResponse	"Internal server error"
+//	@Param			request	body		dto.LoginRequest	true	"Login request body"
+//	@Success		200		{object}	dto.AuthResponse	"Succesfully logged in"
+//	@Failure		400		{object}	dto.ErrorResponse	"Validation error"
+//	@Failure		401		{object}	dto.ErrorResponse	"Unauthorized error"
+//	@Failure		500		{object}	dto.ErrorResponse	"Internal server error"
 //	@Router			/users/login [post]
 func (ah *AuthHandler) Login(ctx *gin.Context) {
-	var req loginRequest
+	var req dto.LoginRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
 	}
 
 	token, err := ah.svc.Login(ctx, req.Email, req.Password)
-	
+
 	if err != nil {
 		handleError(ctx, err)
 		return
 	}
 
-	rsp := newAuthResponse(token)
+	rsp := dto.NewAuthResponse(token)
 
 	handleSuccess(ctx, rsp)
 }
