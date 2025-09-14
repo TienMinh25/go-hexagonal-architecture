@@ -12,8 +12,8 @@ import (
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/config"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/handler/http"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/logger"
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/postgres/repository"
-	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/storage/redis"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/redis"
+	"github.com/TienMinh25/go-hexagonal-architecture/internal/adapter/repository"
 	"github.com/TienMinh25/go-hexagonal-architecture/internal/application/usecase"
 )
 
